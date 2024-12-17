@@ -14,13 +14,13 @@
 </template>
 
 <style scoped>
-export default {
+/* export default {
   name: "YourComponent",
   methods: {
     setRank(rank) {
       sessionStorage.setItem("rank", rank);
     },
   },
-};
+}; */
 
 </style>

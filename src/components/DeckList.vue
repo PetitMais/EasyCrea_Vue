@@ -7,6 +7,7 @@
         <p><strong>Date de début :</strong> {{ element.date_debut_deck }}</p>
         <p><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
         <p><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p>
+        <button>Participer au deck</button>
       </article>
     </section>
   </template>
