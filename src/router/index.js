@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/deck', //url de la page
       name: 'deck', //nom du fichier que j'appel
-      component: DeckList, //c'est le component que j'appel
+      component: () => import('../views/DeckView.vue'),
     },
   ],
 })
