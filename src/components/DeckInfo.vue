@@ -1,14 +1,9 @@
 <template>
     <div v-if="data">
-      <h1>Informations sur le deck</h1>
-      <p><strong>Titre :</strong> {{ data.titre_deck }}</p>
-      <p><strong>Description :</strong> {{ data.body_deck }}</p>
-      <p><strong>Date de début :</strong> {{ data.date_debut_deck }}</p>
-      <p><strong>Date de fin :</strong> {{ data.date_fin_deck }}</p>
-      <p><strong>Nombre de cartes :</strong> {{ data.nb_cartes }}</p>
+      <span>{{ data.titre_deck }}</span>
     </div>
     <div v-else>
-      <p>Chargement des informations du deck...</p>
+      <span>Chargement des informations du deck...</span>
     </div>
   </template>
   
