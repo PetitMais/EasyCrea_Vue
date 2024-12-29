@@ -28,7 +28,7 @@
 
     <form @submit.prevent="submitForm">
       <label for="texte">Texte :*</label>
-      <textarea v-model="formData.texte" id="texte" required></textarea>
+      <textarea v-model="formData.texte" id="texte" minlength="50" maxlength="280" required></textarea>
 
       <label for="choice1">Choix n°1 :*</label>
       <div>
@@ -53,9 +53,11 @@
 
 <script setup>
 import { reactive, ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import DeckInfo from '@/components/DeckInfo.vue';
 import AleaCheck from '@/components/AleaCheck.vue';
 import CartePrint from '@/components/CartePrint.vue';
+const router = useRouter();
 
 const props = defineProps({
   id: { // id_deck
@@ -90,8 +92,77 @@ onMounted(() => {
   formData.idDeck = props.id;
 });
 
-const submitForm = () => {
-  console.log('Données du formulaire :', formData);
+const submitForm = async () => {
+  console.log("Données du formulaire :", formData);
+
+  const ordre = await fetchOrderDeck();
+
+  const valChoix1 = `${formData.population1}/${formData.finance1}`;
+  const valChoix2 = `${formData.population2}/${formData.finance2}`;
+
+  const formattedData = {
+    texte: formData.texte,
+    valChoix1,
+    valChoix2,
+    date: dateFormatted(),
+    ordre: ordre,
+    idDeck: formData.idDeck,
+    idAdmin: null,
+    idCrea: 20,
+  };
+  console.log("Données formatées :", formattedData);
+
+  await sendCarteInfo(formattedData);
+  router.push('/deck');
+};
+
+const dateFormatted = () => {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+
+  const formattedDate = `${yyyy}-${mm}-${dd}`;
+  console.log(formattedDate);
+  return formattedDate;
+
+}
+
+const data = ref({});
+
+const fetchOrderDeck = async () => {
+  const url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/carte/deck/ordermax";
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: Number(props.id) }),
+  };
+  try {
+    const response = await fetch(url, options);
+    const jsonData = await response.json();
+    data.value = jsonData;
+    let max_ordre = data.value.max_ordre;
+    console.log("Order récupéré :", max_ordre);
+    return max_ordre;
+
+  } catch (error) {
+    console.error("Erreur lors de la récupération de la donnée :", error);
+  }
+};
+
+const sendCarteInfo = async (formattedData) => {
+  const url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/carte";
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formattedData),
+  };
+  try {
+    await fetch(url, options);
+  } catch (error) {
+    console.error("Erreur lors de l'envoie des données :", error);
+    // ajouter un retour vers la page deckList avec un message du genre "Un souci à eut lieu, veuillez réessayer"
+  }
 };
 </script>
 
@@ -118,8 +189,9 @@ button {
   margin-bottom: 10px;
   padding: 10px;
 }
-.carte-details > h2{
-text-align: center;
+
+.carte-details>h2 {
+  text-align: center;
 }
 
 .choice p {
