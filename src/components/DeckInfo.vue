@@ -1,6 +1,7 @@
 <template>
   <div v-if="data.titre_deck">
     <span>{{ data.titre_deck }}</span>
+    <p>Nombre de cartes : {{ data.nb_cartes }}</p>
   </div>
   <div v-else>
     <span>Chargement des informations du deck...</span>
@@ -17,7 +18,9 @@ const props = defineProps({
   },
 });
 
-const data = ref({}); //objet vide
+const emit = defineEmits(['update:nbCartes']);
+
+const data = ref({});
 
 const fetchDeckInfo = async () => {
   const url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck/id";
@@ -30,8 +33,10 @@ const fetchDeckInfo = async () => {
     const response = await fetch(url, options);
     const jsonData = await response.json();
     data.value = jsonData;
+
+    emit('update:nbCartes', data.value.nb_cartes);
+
     console.log("Deck récupéré :", data.value);
-    console.log(data.value.titre_deck);
   } catch (error) {
     console.error("Erreur lors de la récupération des données :", error);
   }
@@ -40,7 +45,6 @@ const fetchDeckInfo = async () => {
 onMounted(() => {
   fetchDeckInfo();
 });
-
 </script>
 
 <style scoped>

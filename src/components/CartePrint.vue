@@ -32,6 +32,8 @@ const fetchCarteInfo = async () => {
         }        
 
         emit('update:carteInfo', data.value);
+        console.log(`L'ordre de soumission est ${data.value.ordre_soumission}`);
+        emit('update:ordreSoumission', data.value.ordre_soumission);
     } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
     }
