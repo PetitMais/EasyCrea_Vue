@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import InscriptionView from '../views/InscriptionView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +18,7 @@ const router = createRouter({
     {
       path: '/inscription',
       name: 'inscription',
-      component: () => import('../views/InscriptionView.vue'),
+      component: InscriptionView,
     },
     {
       path: '/deck', //url de la page
