@@ -4,7 +4,7 @@
 
     <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
 
-    <AleaCheck :id_createur="21" :id_deck="Number(id)" @update:carteRng="handleCarteRng" />
+    <AleaCheck :id_createur="21" :id_deck="Number(id)" @update:carteRng="handleCarteRng"/>
 
     <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
 

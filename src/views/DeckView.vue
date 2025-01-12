@@ -1,5 +1,7 @@
 <script setup>
 import DeckList from './../components/DeckList.vue';
+
+
 </script>
 
 <template>
