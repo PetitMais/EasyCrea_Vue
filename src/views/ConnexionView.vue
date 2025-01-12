@@ -164,9 +164,6 @@ async function handleSubmit(event) {
 
     const data = await response.json();
 
-    console.log(data);
-    console.log(data.check);
-
     if (data.check === true) {
       // Redirection vers la page "Deck"
       router.push('/deck');
@@ -184,7 +181,7 @@ async function handleSubmit(event) {
 </script>
 
 <template>
-  <h1>Connexion</h1>
+  <h1 class="titre__view">Connexion</h1>
   <form @submit="handleSubmit" class="connexion">
     <label>
       Adresse mail :
