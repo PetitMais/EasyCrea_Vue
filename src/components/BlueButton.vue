@@ -3,12 +3,16 @@
     msg: {
         type: String,
         required: true
+    },
+    url: {
+        type: String,
+        required: true
     }
     })
 </script>
 
 <template>
-    <button>{{ msg }}</button>
+    <a :href="url">{{ msg }}</a>
 </template>
 
 <style scoped>
