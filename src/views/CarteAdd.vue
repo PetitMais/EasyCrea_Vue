@@ -65,6 +65,9 @@ const props = defineProps({
     required: true,
   },
 });
+onMounted(() => {
+  console.log("Valeur de l'id reçue :", props.id);
+});
 
 const idCarte = ref(null);
 const carteInfo = ref(null);
@@ -85,13 +88,7 @@ const handleNbCartes = (count) => {
   nbCartes.value = count;
 };
 
-const formData = reactive({
-  texte: '',
-  population1: 0,
-  finance1: 0,
-  population2: 0,
-  finance2: 0,
-});
+const formData = reactive({});
 
 const submitForm = async () => {
   console.log('Données du formulaire :', formData);
@@ -163,6 +160,8 @@ const sendCarteInfo = async (formattedData) => {
 form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
   gap: 10px;
 }
 
@@ -173,6 +172,7 @@ label {
 input,
 textarea,
 button {
+  width: 100%;
   padding: 8px;
   font-size: 14px;
 }
@@ -180,15 +180,40 @@ button {
 .carte-details {
   margin-top: 20px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 20px;
+  background-color: #007bff17;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
-.carte-details>h2,
-.carte-details>p {
+.carte-details h2 {
   text-align: center;
+  color: #555;
+}
+
+.carte-details p {
+  text-align: center;
+  color: #555;
+  font-size: 16px;
+}
+
+.choice {
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .choice p {
-  text-indent: 1rem;
+  color: #555;
+  font-size: 14px;
 }
 </style>

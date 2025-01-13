@@ -9,6 +9,9 @@
             <router-link :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
                 <button>Participer au deck</button>
             </router-link>
+            <router-link :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
+                <button>Afficher votre participation</button>
+            </router-link>
         </article>
     </section>
 </template>
@@ -32,6 +35,7 @@ export default {
         } catch (error) {
             console.error("Erreur lors de la récupération des données :", error);
         }
+
     }
 };
 </script>

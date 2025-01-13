@@ -36,6 +36,12 @@ const router = createRouter({
       component: () => import('../views/CarteAdd.vue'),
       props: true
     },
+    {
+      path: '/deck/participation/:id', //url de la page
+      name: 'deckParticipation', //nom du fichier que j'appel
+      component: () => import('../views/DeckParticipation.vue'),
+      props: true
+    },
   ],
 })
 

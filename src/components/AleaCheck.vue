@@ -21,7 +21,7 @@ const props = defineProps({
     id_deck: {
         type: [Number, String],
         required: true,
-    },
+    }
 });
 
 const data = ref({}); // objet vide
