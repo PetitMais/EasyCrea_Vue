@@ -93,10 +93,9 @@ export default {
         const userId = sessionStorage.getItem("id");
         const userRank = sessionStorage.getItem("userRank");
 
-        let url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck";
-        let options = { method: "GET" };
+        let url;
+        let options;
 
-        // Si l'utilisateur est admin, on change l'URL et la méthode en POST
         if (userRank === "admin") {
             url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck/participation/admin";
             options = {
@@ -104,6 +103,9 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: userId })
             };
+        } else {
+            url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck";
+            options = { method: "GET" };
         }
 
         try {
