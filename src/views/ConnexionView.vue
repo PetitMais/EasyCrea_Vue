@@ -163,12 +163,14 @@ async function handleSubmit(event) {
     });
 
     const data = await response.json();
-
+    console.log(data.id);
+    
     if (data.check === true) {
       // Redirection vers la page "Deck"
       router.push('/deck');
       sessionStorage.removeItem("choiceRank");
       sessionStorage.setItem("userRank", choiceRank.value);
+      sessionStorage.setItem("id", data.id);
     } else {
       // Afficher un message d'erreur
       errorMessage.value = 'Identifiants incorrects.';

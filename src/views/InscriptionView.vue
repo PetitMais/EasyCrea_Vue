@@ -53,9 +53,9 @@ async function handleInscription(event) {
 
     if (data.success === true) {
       // Si l'inscription réussit, redirigez l'utilisateur vers la page '/deck'
-      router.push('/deck');
+      sessionStorage.setItem("userRank", "créateur");
       sessionStorage.removeItem("choiceRank");
-      sessionStorage.setItem("userRank", choiceRank.value);
+      router.push('/deck');
     } else {
       // Sinon, affichez le message d'erreur
       console.log(data);
