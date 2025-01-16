@@ -1,6 +1,6 @@
 <script setup>
 import DeckList from './../components/DeckList.vue';
-
+const userRank = sessionStorage.getItem("userRank");
 
 </script>
 
@@ -8,7 +8,7 @@ import DeckList from './../components/DeckList.vue';
   <main>
     <h1>Liste des decks</h1>
     
-    <button @click="$router.push('/deck/add')">Ajouter un deck</button>
+    <button v-if="userRank === 'admin'" @click="$router.push('/deck/add')">Ajouter un deck</button>
 
     <DeckList></DeckList>
 
