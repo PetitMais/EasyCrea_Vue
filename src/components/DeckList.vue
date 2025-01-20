@@ -59,5 +59,28 @@ export default {
     </section>
 </template>
 
+<style scoped>
+.deck {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #32265e;
+}
+
+button {
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
+
 
 
