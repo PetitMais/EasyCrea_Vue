@@ -42,19 +42,19 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const data = ref({});
 const idDeck = ref(0);
 
-
-const formData = reactive({
-});
+const formData = reactive({});
 
 const submitForm = async () => {
     console.log("Données du formulaire :", formData);
+    const adminId = sessionStorage.getItem("id");
+    console.log(adminId);
 
     const formattedData = {
         titre: formData.title,
@@ -63,7 +63,7 @@ const submitForm = async () => {
         date_fin: formData.date,
         nb_cartes: formData.nbCartes,
         nb_jaime: 0,
-        id_administrateur: 1
+        id_administrateur: Number(adminId)
     };
 
     console.log("Données formatées :", formattedData);
@@ -81,7 +81,7 @@ const submitForm = async () => {
         date: dateFormatted(),
         ordre: 1,
         idDeck: idDeck.value,
-        idAdmin: 1,
+        idAdmin: Number(adminId),
         idCrea: null,
     };
 
