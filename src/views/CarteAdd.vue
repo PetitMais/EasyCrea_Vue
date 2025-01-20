@@ -4,7 +4,7 @@
 
     <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
 
-    <AleaCheck :id_createur="21" :id_deck="Number(id)" @update:carteRng="handleCarteRng"/>
+    <AleaCheck :id_createur="Number(props.id_createur)" :id_deck="Number(id)" @update:carteRng="handleCarteRng"/>
 
     <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
 
@@ -64,9 +64,14 @@ const props = defineProps({
     type: [Number, String],
     required: true,
   },
+  id_createur: {
+    type: [Number, String],
+    required: true,
+  },
 });
 onMounted(() => {
   console.log("Valeur de l'id reçue :", props.id);
+  console.log("Valeur de l'id_createur reçue :", props.id_createur);
 });
 
 const idCarte = ref(null);
@@ -106,7 +111,7 @@ const submitForm = async () => {
     ordre: ordre,
     idDeck: props.id,
     idAdmin: null,
-    idCrea: 20,
+    idCrea: props.id_createur,
   };
 
   console.log('Données formatées :', formattedData);

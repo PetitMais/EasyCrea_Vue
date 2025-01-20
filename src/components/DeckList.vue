@@ -1,16 +1,16 @@
 <script>
 const userRank = sessionStorage.getItem("userRank");
+const userId = sessionStorage.getItem("id");
 export default {
     data() {
         return {
-            data: [] // Stocke les decks récupérés
+            data: []
         };
     },
     async mounted() {
         const userId = sessionStorage.getItem("id");
         const userRank = sessionStorage.getItem("userRank");
         console.log(userRank);
-        
 
         let url;
         let options;
@@ -49,10 +49,10 @@ export default {
             <p><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
             <p><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p>
 
-            <router-link v-if="userRank === 'créateur'" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
+            <router-link v-if="userRank === 'créateur'" :to="{ name: 'carteAdd', params: { id: element.id_deck, id_createur: userId } }">
                 <button>Participer au deck</button>
             </router-link>
-            <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
+            <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck, id_createur: userId } }">
                 <button>Afficher votre participation</button>
             </router-link>
         </article>
@@ -81,6 +81,3 @@ button:hover {
     background-color: #0056b3;
 }
 </style>
-
-
-
