@@ -3,12 +3,33 @@ import ChoiceHome from './../components/ChoiceHome.vue';
 </script>
 
 <template>
-    <a href="https://expo.dev/accounts/twist404/projects/deckouvert/builds/aa4d12a8-7e10-4863-a297-528da267164e" target="_blank">Deckouverte</a>
-  <main>
+  <section>
+    <h1>EasyCrea</h1>
     <ChoiceHome/>
-  </main>
-
+  </section>
 </template>
 
 <style>
+  section{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+  }
+
+  section>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  h1{
+    font-size: xxx-large;
+    font-style: italic;
+    text-decoration: underline;
+    
+  }
 </style>
