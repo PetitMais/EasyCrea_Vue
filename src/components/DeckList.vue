@@ -1,21 +1,19 @@
 <script>
-const userRank = sessionStorage.getItem("userRank");
 export default {
     data() {
         return {
-            data: [] // Stocke les decks récupérés
+            data: [], // Stocke les decks récupérés
+            userRank: "" // Stocke le rôle de l'utilisateur de manière réactive
         };
     },
     async mounted() {
+        this.userRank = sessionStorage.getItem("userRank"); // Stocker le rôle réactif
         const userId = sessionStorage.getItem("id");
-        const userRank = sessionStorage.getItem("userRank");
-        console.log(userRank);
-        
 
         let url;
         let options;
 
-        if (userRank === "admin") {
+        if (this.userRank === "admin") {
             url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck/participation/admin";
             options = {
                 method: "POST",
@@ -30,7 +28,6 @@ export default {
         try {
             const response = await fetch(url, options);
             if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-
             this.data = await response.json(); // Met à jour les decks
             console.log(this.data);
         } catch (error) {
@@ -58,6 +55,3 @@ export default {
         </article>
     </section>
 </template>
-
-
-
