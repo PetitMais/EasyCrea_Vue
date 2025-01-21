@@ -119,7 +119,6 @@ button:hover {
 }
 </style> -->
 <script setup>
-import BlueButton from '@/components/BlueButton.vue';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -183,7 +182,7 @@ async function handleSubmit(event) {
 </script>
 
 <template>
-  <h1 class="titre__view">Connexion</h1>
+  <h1 class="titre__view">Connexion {{ choiceRank }}</h1>
   <form @submit="handleSubmit" class="connexion">
     <label>
       Adresse mail :
