@@ -1,13 +1,16 @@
 <script setup>
 import DeckList from './../components/DeckList.vue';
+import LogoutButton from './../components/LogoutButton.vue';
 const userRank = sessionStorage.getItem("userRank");
 
 </script>
 
 <template>
+  <LogoutButton></LogoutButton>
+
   <main>
     <h1>Liste des decks</h1>
-    
+
     <button v-if="userRank === 'admin'" @click="$router.push('/deck/add')">Ajouter un deck</button>
 
     <DeckList></DeckList>
