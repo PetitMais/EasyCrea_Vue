@@ -1,28 +1,13 @@
 <script>
-<<<<<<< HEAD
 export default {
     data() {
         return {
             data: [], // Stocke les decks récupérés
-            userRank: "" // Stocke le rôle de l'utilisateur de manière réactive
-=======
-const userRank = sessionStorage.getItem("userRank");
-const userId = sessionStorage.getItem("id");
-export default {
-    data() {
-        return {
-            data: []
->>>>>>> 2d8ad6b9ad4c087f5e46a88bbbf2b0c142fa2404
         };
     },
     async mounted() {
         this.userRank = sessionStorage.getItem("userRank"); // Stocker le rôle réactif
-        const userId = sessionStorage.getItem("id");
-<<<<<<< HEAD
-=======
-        const userRank = sessionStorage.getItem("userRank");
-        console.log(userRank);
->>>>>>> 2d8ad6b9ad4c087f5e46a88bbbf2b0c142fa2404
+        this.userId = sessionStorage.getItem("id");
 
         let url;
         let options;
@@ -60,10 +45,10 @@ export default {
             <p><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
             <p><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p>
 
-            <router-link v-if="userRank === 'créateur'" :to="{ name: 'carteAdd', params: { id: element.id_deck, id_createur: userId } }">
+            <router-link v-if="userRank === 'créateur'" :to="{ name: 'carteAdd', params: { id: element.id_deck , id_createur: userId } }">
                 <button>Participer au deck</button>
             </router-link>
-            <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck, id_createur: userId } }">
+            <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck, id_createur: userId} }">
                 <button>Afficher votre participation</button>
             </router-link>
         </article>
