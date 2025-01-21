@@ -45,10 +45,10 @@ export default {
             <p><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
             <p><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p>
 
-            <router-link v-if="userRank === 'créateur'" :to="{ name: 'carteAdd', params: { id: element.id_deck , id_createur: userId } }">
+            <router-link v-if="userRank === 'créateur'" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
                 <button>Participer au deck</button>
             </router-link>
-            <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck, id_createur: userId} }">
+            <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
                 <button>Afficher votre participation</button>
             </router-link>
         </article>

@@ -4,10 +4,10 @@
 
     <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
 
-    <AleaCheck :id_createur="Number(props.id_createur)" :id_deck="Number(id)" @update:carteRng="handleCarteRng"/>
+    <AleaCheck :id_createur="userId" :id_deck="Number(id)" @update:carteRng="handleCarteRng"/>
 
     <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
-
+    
     <div v-if="carteInfo" class="carte-details">
       <h2>Une carte aléatoire vous a été attribuée :</h2>
       <p>Il s'agit de la carte n°{{ carteInfo.ordre_soumission }} sur {{ nbCartes }}.</p>
@@ -56,6 +56,9 @@ import { useRouter } from 'vue-router';
 import DeckInfo from '@/components/DeckInfo.vue';
 import AleaCheck from '@/components/AleaCheck.vue';
 import CartePrint from '@/components/CartePrint.vue';
+let userId = sessionStorage.getItem("id");
+console.log(userId);
+
 
 const router = useRouter();
 
@@ -63,11 +66,7 @@ const props = defineProps({
   id: { // id_deck
     type: [Number, String],
     required: true,
-  },
-  id_createur: {
-    type: [Number, String],
-    required: true,
-  },
+  }
 });
 onMounted(() => {
   console.log("Valeur de l'id reçue :", props.id);
