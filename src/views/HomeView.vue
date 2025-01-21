@@ -9,7 +9,7 @@ import ChoiceHome from './../components/ChoiceHome.vue';
   </section>
 </template>
 
-<style>
+<style scoped>
   section{
     height: 100%;
     display: flex;
