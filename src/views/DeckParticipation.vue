@@ -1,4 +1,5 @@
 <template>
+      <LogoutButton></LogoutButton>
   <div>
     <h1>Ta carte rng et ta participation</h1>
     <h2>Ne fonctionne que pour id crea = 20 (lapin), à modif</h2>
@@ -55,6 +56,7 @@ import { useRouter } from 'vue-router';
 import DeckInfo from '@/components/DeckInfo.vue';
 import AleaCheck from '@/components/AleaCheck.vue';
 import CartePrint from '@/components/CartePrint.vue';
+import LogoutButton from '@/components/LogoutButton.vue';
 
 const router = useRouter();
 

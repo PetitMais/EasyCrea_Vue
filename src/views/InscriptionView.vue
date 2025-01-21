@@ -70,41 +70,60 @@ async function handleInscription(event) {
 </script>
 
 <template>
-  <h1>Inscription</h1>
-  <form @submit="handleInscription" class="form-inscription">
-    <label>
-      Nom :
-      <input type="text" v-model="name" required />
-    </label>
-    <label>
-      Email :
-      <input type="email" v-model="mail" id="mail" required />
-    </label>
-    <label>
-      Mot de passe :
-      <input type="password" v-model="password" required />
-    </label>
-    <label>
-      Sexe :
-      <select v-model="sexe" required>
-        <option value="F">Féminin</option>
-        <option value="M">Masculin</option>
-      </select>
-    </label>
-    <label>
-      Date de naissance :
-      <input type="date" v-model="date" :max="maxDate" required />
-    </label>
-    <button type="submit">S'inscrire</button>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-  </form>
+  <section>
+    <h1>Inscription</h1>
+    <form @submit="handleInscription" class="form-inscription">
+      <label>
+        Nom :
+        <input type="text" v-model="name" required />
+      </label>
+      <label>
+        Email :
+        <input type="email" v-model="mail" id="mail" required />
+      </label>
+      <label>
+        Mot de passe :
+        <input type="password" v-model="password" required />
+      </label>
+      <label>
+        Sexe :
+        <select v-model="sexe" required>
+          <option value="F">Féminin</option>
+          <option value="M">Masculin</option>
+        </select>
+      </label>
+      <label>
+        Date de naissance :
+        <input type="date" v-model="date" :max="maxDate" required />
+      </label>
+      <button type="submit">S'inscrire</button>
+      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    </form>
+    <!-- Bouton retour -->
+    <RouterLink to="/" id="back">Retour</RouterLink>
+  </section>
 </template>
 
 <style scoped>
+section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+h1{
+    font-size: xxx-large;
+    font-style: italic;
+    text-decoration: underline;
+    
+}
+
 .form-inscription {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 25px;
   max-width: 400px;
   margin: 0 auto;
 }
@@ -113,6 +132,10 @@ label {
   display: flex;
   flex-direction: column;
   font-weight: bold;
+}
+label>input{
+  width: 250px;
+  height: 30px;
 }
 
 button {
@@ -132,5 +155,12 @@ button:hover {
 .error {
   color: red;
   font-size: 14px;
+}
+
+#back{
+  color: red;
+}
+#back:hover{
+  background-color: rgba(255, 0, 0, 0.236);
 }
 </style>

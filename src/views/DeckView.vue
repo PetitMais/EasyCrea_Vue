@@ -1,7 +1,20 @@
+<<<<<<< HEAD
+=======
+<script setup>
+import DeckList from './../components/DeckList.vue';
+import LogoutButton from './../components/LogoutButton.vue';
+const userRank = sessionStorage.getItem("userRank");
+
+</script>
+
+>>>>>>> 89fef23953b696b4124e68c01b584a2fe8af18cc
 <template>
+  <LogoutButton></LogoutButton>
+
   <main>
     <h1>Liste des decks</h1>
 
+<<<<<<< HEAD
     <!-- Checkbox pour filtrer les decks terminés -->
     <label class="switch">
       <input type="checkbox" v-model="showFinished">
@@ -9,6 +22,8 @@
     </label>
     <span>{{ showFinished ? "Afficher les decks terminés" : "Afficher les decks en cours" }}</span>
 
+=======
+>>>>>>> 89fef23953b696b4124e68c01b584a2fe8af18cc
     <button v-if="userRank === 'admin'" @click="$router.push('/deck/add')">Ajouter un deck</button>
 
     <!-- Passer les filtres à DeckList -->

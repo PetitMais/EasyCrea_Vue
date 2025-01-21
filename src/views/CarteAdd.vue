@@ -1,13 +1,14 @@
 <template>
+  <LogoutButton></LogoutButton>
   <div>
     <h1>Ajouter une carte au deck</h1>
 
     <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
 
-    <AleaCheck :id_createur="userId" :id_deck="Number(id)" @update:carteRng="handleCarteRng"/>
+    <AleaCheck :id_createur="userId" :id_deck="Number(id)" @update:carteRng="handleCarteRng" />
 
     <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
-    
+
     <div v-if="carteInfo" class="carte-details">
       <h2>Une carte aléatoire vous a été attribuée :</h2>
       <p>Il s'agit de la carte n°{{ carteInfo.ordre_soumission }} sur {{ nbCartes }}.</p>
@@ -56,6 +57,7 @@ import { useRouter } from 'vue-router';
 import DeckInfo from '@/components/DeckInfo.vue';
 import AleaCheck from '@/components/AleaCheck.vue';
 import CartePrint from '@/components/CartePrint.vue';
+import LogoutButton from '@/components/LogoutButton.vue';
 let userId = sessionStorage.getItem("id");
 console.log(userId);
 
@@ -187,7 +189,7 @@ button {
   padding: 20px;
   background-color: #007bff17;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -208,7 +210,7 @@ button {
 .choice {
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: row;
   justify-content: center;

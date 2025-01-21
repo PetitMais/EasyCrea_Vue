@@ -182,6 +182,7 @@ async function handleSubmit(event) {
 </script>
 
 <template>
+<<<<<<< HEAD
   <h1 class="titre__view">Connexion {{ choiceRank }}</h1>
   <form @submit="handleSubmit" class="connexion">
     <label>
@@ -195,18 +196,77 @@ async function handleSubmit(event) {
     <button type="submit">Se connecter</button>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </form>
+=======
+  <section>
+    <h1 class="titre__view">Connexion</h1>
+    <form @submit="handleSubmit" class="connexion">
+        <label>
+          Adresse mail :
+          <input type="email" v-model="email" required>
+        </label>
+        <label>
+          Mot de passe :
+          <input type="password" v-model="password" required>
+        </label>
+        <button type="submit">Se connecter</button>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      </form>
+      <!-- Bouton affiché uniquement si choiceRank est 'créateur' -->
+      <RouterLink to="/inscription" v-if="choiceRank === 'créateur'">Inscription</RouterLink>
+      <!-- Bouton retour -->
+      <RouterLink to="/" id="back">Retour</RouterLink>
+  </section>
 
-  <!-- Bouton affiché uniquement si choiceRank est 'créateur' -->
-  <RouterLink to="/inscription" v-if="choiceRank === 'créateur'">Inscription</RouterLink>
+
+>>>>>>> 89fef23953b696b4124e68c01b584a2fe8af18cc
+
 </template>
 
 <style scoped>
+  section{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    h1{
+    font-size: xxx-large;
+    font-style: italic;
+    text-decoration: underline;   
+    }
+  }
+
+.connexion{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+  label{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 5px;
+  }
+  
+  label>input{
+    width: 250px;
+    height: 30px;
+  }
+}
+
 /* Ajout de styles pour le bouton */
 button {
+  width: 150px;
   margin-top: 10px;
-  padding: 8px 16px;
+  padding: 16px;
   background-color: #42b983;
   color: white;
+  font-weight: bold;
+  font-size: medium;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -219,5 +279,11 @@ button:hover {
 .error {
   color: red;
   margin-top: 10px;
+}
+#back{
+  color: red;
+}
+#back:hover{
+  background-color: rgba(255, 0, 0, 0.236);
 }
 </style>

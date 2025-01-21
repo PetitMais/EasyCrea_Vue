@@ -1,5 +1,5 @@
 <template>
-
+    <LogoutButton></LogoutButton>
     <div>
         <h1>Ajouter un deck</h1>
 
@@ -44,6 +44,7 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import LogoutButton from '@/components/LogoutButton.vue';
 const router = useRouter();
 
 const data = ref({});
