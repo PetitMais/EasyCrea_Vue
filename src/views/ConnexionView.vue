@@ -182,21 +182,6 @@ async function handleSubmit(event) {
 </script>
 
 <template>
-<<<<<<< HEAD
-  <h1 class="titre__view">Connexion {{ choiceRank }}</h1>
-  <form @submit="handleSubmit" class="connexion">
-    <label>
-      Adresse mail :
-      <input type="email" v-model="email" required>
-    </label>
-    <label>
-      Mot de passe :
-      <input type="password" v-model="password" required>
-    </label>
-    <button type="submit">Se connecter</button>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-  </form>
-=======
   <section>
     <h1 class="titre__view">Connexion</h1>
     <form @submit="handleSubmit" class="connexion">
@@ -218,7 +203,6 @@ async function handleSubmit(event) {
   </section>
 
 
->>>>>>> 89fef23953b696b4124e68c01b584a2fe8af18cc
 
 </template>
 
