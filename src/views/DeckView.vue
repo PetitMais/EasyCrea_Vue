@@ -19,9 +19,11 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import DeckList from '@/components/DeckList.vue';
+import LogoutButton from './../components/LogoutButton.vue';
 
+const userRank = sessionStorage.getItem("userRank");
 export default {
   components: { DeckList },
   setup() {
@@ -89,15 +91,15 @@ button:hover {
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #44DB36;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #44DB36;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
