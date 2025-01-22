@@ -121,8 +121,10 @@ export default {
       <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
         <button>Afficher votre participation</button>
       </router-link>
+      <router-link v-if="userRank === 'admin'" :to="{ name: 'carteEdit', params: { id: element.id_deck } }">
+        <button>Modifier le deck</button>
+      </router-link>
     </article>
+
   </section>
 </template>
-
-  

@@ -22,6 +22,7 @@
 import { ref } from 'vue';
 import DeckList from '@/components/DeckList.vue';
 import LogoutButton from './../components/LogoutButton.vue';
+
 const userRank = sessionStorage.getItem("userRank");
 export default {
   components: { DeckList },
