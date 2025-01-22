@@ -1,20 +1,9 @@
-<<<<<<< HEAD
-=======
-<script setup>
-import DeckList from './../components/DeckList.vue';
-import LogoutButton from './../components/LogoutButton.vue';
-const userRank = sessionStorage.getItem("userRank");
-
-</script>
-
->>>>>>> 89fef23953b696b4124e68c01b584a2fe8af18cc
 <template>
   <LogoutButton></LogoutButton>
 
   <main>
     <h1>Liste des decks</h1>
 
-<<<<<<< HEAD
     <!-- Checkbox pour filtrer les decks terminés -->
     <label class="switch">
       <input type="checkbox" v-model="showFinished">
@@ -22,8 +11,6 @@ const userRank = sessionStorage.getItem("userRank");
     </label>
     <span>{{ showFinished ? "Afficher les decks terminés" : "Afficher les decks en cours" }}</span>
 
-=======
->>>>>>> 89fef23953b696b4124e68c01b584a2fe8af18cc
     <button v-if="userRank === 'admin'" @click="$router.push('/deck/add')">Ajouter un deck</button>
 
     <!-- Passer les filtres à DeckList -->
@@ -32,9 +19,10 @@ const userRank = sessionStorage.getItem("userRank");
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import DeckList from '@/components/DeckList.vue';
-
+import LogoutButton from './../components/LogoutButton.vue';
+const userRank = sessionStorage.getItem("userRank");
 export default {
   components: { DeckList },
   setup() {
@@ -102,15 +90,15 @@ button:hover {
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #44DB36;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #44DB36;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
