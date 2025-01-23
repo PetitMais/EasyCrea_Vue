@@ -9,7 +9,7 @@
       <input type="checkbox" v-model="showFinished">
       <span class="slider round"></span>
     </label>
-    <span>{{ showFinished ? "Afficher les decks terminés" : "Afficher les decks en cours" }}</span>
+    <span>{{ showFinished ? "Terminés" : "En cours" }}</span>
 
     <button v-if="userRank === 'admin'" @click="$router.push('/deck/add')">Ajouter un deck</button>
 
