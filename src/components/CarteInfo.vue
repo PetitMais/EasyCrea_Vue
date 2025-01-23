@@ -21,7 +21,7 @@
                 <textarea v-model="editableCard.texte_carte"></textarea>
                 <input v-model="editableCard.valeurs_choix1" placeholder="Valeurs Choix 1" />
                 <input v-model="editableCard.valeurs_choix2" placeholder="Valeurs Choix 2" />
-                <button type="submit">Submit</button>
+                <button type="submit">Soumettre</button>
             </form>
         </div>
         <div v-else>
