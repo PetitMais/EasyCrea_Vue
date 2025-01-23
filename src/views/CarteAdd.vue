@@ -1,54 +1,64 @@
 <template>
-  <LogoutButton></LogoutButton>
-  <div>
-    <h1>Ajouter une carte au deck</h1>
+    <section>
+      <h1>Ajouter une carte au deck</h1>
+      <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
 
-    <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
+      <AleaCheck :id_createur="userId" :id_deck="Number(id)" @update:carteRng="handleCarteRng" />
 
-    <AleaCheck :id_createur="userId" :id_deck="Number(id)" @update:carteRng="handleCarteRng" />
+      <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
 
-    <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
+      <div class="global_container">
+        <div v-if="carteInfo" class="rc_container">
+          <div class="rc_container_title">
+            <h2>Une carte aléatoire vous a été attribuée :</h2>
+            <p style="color: black;">Il s'agit de la carte n°{{ carteInfo.ordre_soumission }} sur {{ nbCartes }}.</p>
+          </div>
+          <div class="card-details">
+            <div class="rc_text">
+              <strong>Texte :</strong>
+                  <p style="color: black; word-wrap: break-word;">{{ carteInfo.texte_carte }}</p>
+            </div>
+            <div class="detail_choice">
+              <div class="choice">
+                <strong>Choix 1 :</strong>
+                <p style="color: black;"><strong>Population :</strong> {{ carteInfo.valeurs_choix1_pop }}</p>
+                <p style="color: black;"><strong>Finance :</strong> {{ carteInfo.valeurs_choix1_fin }}</p>
+              </div>
 
-    <div v-if="carteInfo" class="carte-details">
-      <h2>Une carte aléatoire vous a été attribuée :</h2>
-      <p>Il s'agit de la carte n°{{ carteInfo.ordre_soumission }} sur {{ nbCartes }}.</p>
-      <div>
-        <p><strong>Texte :</strong> {{ carteInfo.texte_carte }}</p>
+              <div class="choice">
+                <strong>Choix 2 :</strong>
+                <p style="color: black;"><strong>Population :</strong> {{ carteInfo.valeurs_choix2_pop }}</p>
+                <p style="color: black;"><strong>Finance :</strong> {{ carteInfo.valeurs_choix2_fin }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+      <form @submit.prevent="submitForm">
+        <div>
+          <label for="texte">Texte : *</label>
+          <textarea v-model="formData.texte" id="texte" minlength="50" maxlength="280" required></textarea>
+        </div>
+        <div>
+          <div>
+            <label for="choice1">Choix n°1 : *</label>
+            <input v-model="formData.population1" type="number" placeholder="Population" required />
+            <input v-model="formData.finance1" type="number" placeholder="Finance" required />
+          </div>
+          <div>
+            <label for="choice2">Choix n°2 : *</label>
+            <input v-model="formData.population2" type="number" placeholder="Population" required />
+            <input v-model="formData.finance2" type="number" placeholder="Finance" required />
+          </div>
+
+        </div>
+
+        <p>Les données marquées d'une astérisque sont obligatoires.</p>
+        <button type="submit">Ajouter la carte</button>
+        </form>
       </div>
-
-      <div class="choice">
-        <strong>Choix 1 :</strong>
-        <p><strong>Population :</strong> {{ carteInfo.valeurs_choix1_pop }}</p>
-        <p><strong>Finance :</strong> {{ carteInfo.valeurs_choix1_fin }}</p>
-      </div>
-
-      <div class="choice">
-        <strong>Choix 2 :</strong>
-        <p><strong>Population :</strong> {{ carteInfo.valeurs_choix2_pop }}</p>
-        <p><strong>Finance :</strong> {{ carteInfo.valeurs_choix2_fin }}</p>
-      </div>
-    </div>
-
-    <form @submit.prevent="submitForm">
-      <label for="texte">Texte :*</label>
-      <textarea v-model="formData.texte" id="texte" minlength="50" maxlength="280" required></textarea>
-
-      <label for="choice1">Choix n°1 :*</label>
-      <div>
-        <input v-model="formData.population1" type="number" placeholder="Population" required />
-        <input v-model="formData.finance1" type="number" placeholder="Finance" required />
-      </div>
-
-      <label for="choice2">Choix n°2 :*</label>
-      <div>
-        <input v-model="formData.population2" type="number" placeholder="Population" required />
-        <input v-model="formData.finance2" type="number" placeholder="Finance" required />
-      </div>
-
-      <p>Les données marquées d'une astérisque sont obligatoires.</p>
-      <button type="submit">Ajouter la carte</button>
-    </form>
-  </div>
+    </section>
 </template>
 
 <script setup>
@@ -163,63 +173,120 @@ const sendCarteInfo = async (formattedData) => {
 </script>
 
 <style scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  gap: 10px;
-}
-
-label {
-  font-weight: bold;
-}
-
-input,
-textarea,
-button {
-  width: 100%;
-  padding: 8px;
-  font-size: 14px;
-}
-
-.carte-details {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  padding: 20px;
-  background-color: #007bff17;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  margin: 20px;
+
 }
 
-.carte-details h2 {
+h1 {
+  font-size: xxx-large;
+  font-style: italic;
+  text-decoration: underline;
   text-align: center;
-  color: #555;
+  margin-bottom: 20px;
 }
 
-.carte-details p {
-  text-align: center;
-  color: #555;
-  font-size: 16px;
+.global_container {
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  color: black;
+}
+
+.rc_container {
+  background: white;
+  color: black;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  color: black;
+}
+
+.rc_container_title {
+  margin-bottom: 10px;
+}
+
+.card-details {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+  color: black;
+}
+
+.rc_text {
+  margin-bottom: 15px;
+}
+
+.detail_choice {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .choice {
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  flex: 1;
+  margin: 0 5px;
+  text-align: center;
 }
 
-.choice p {
-  color: #555;
-  font-size: 14px;
+form {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin-top: 20px;
+  color: black;
 }
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+textarea, input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #4a90e2;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+textarea{
+  height: 150px;
+}
+
+button {
+  background-color: #1db954; /* Vert vif */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #17a74a; /* Vert un peu plus foncé au survol */
+}
+
+p {
+  font-size: 12px;
+}
+
+
 </style>

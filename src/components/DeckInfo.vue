@@ -1,7 +1,7 @@
 <template>
   <div v-if="data.titre_deck">
-    <span>{{ data.titre_deck }}</span>
-    <p>Nombre de cartes : {{ data.nb_cartes }}</p>
+    <span style="word-wrap: break-word;">{{ data.titre_deck }}</span>
+    <!-- <p>Nombre de cartes : {{ data.nb_cartes }}</p> -->
   </div>
   <div v-else>
     <span>Chargement des informations du deck...</span>
