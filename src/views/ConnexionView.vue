@@ -182,21 +182,6 @@ async function handleSubmit(event) {
 </script>
 
 <template>
-<<<<<<< HEAD
-  <h1 class="titre__view">Connexion {{ choiceRank }}</h1>
-  <form @submit="handleSubmit" class="connexion">
-    <label>
-      Adresse mail :
-      <input type="email" v-model="email" required>
-    </label>
-    <label>
-      Mot de passe :
-      <input type="password" v-model="password" required>
-    </label>
-    <button type="submit">Se connecter</button>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-  </form>
-=======
   <section>
     <h1 class="titre__view">Connexion</h1>
     <form @submit="handleSubmit" class="connexion">
@@ -218,7 +203,6 @@ async function handleSubmit(event) {
   </section>
 
 
->>>>>>> 689ba2593f3f4bbe763fb6a4300d22f60b368b81
 
 </template>
 
@@ -231,11 +215,7 @@ async function handleSubmit(event) {
     align-items: center;
     gap: 25px;
 
-    h1{
-    font-size: xxx-large;
-    font-style: italic;
-    text-decoration: underline;   
-    }
+
   }
 
 .connexion{
@@ -263,7 +243,7 @@ button {
   width: 150px;
   margin-top: 10px;
   padding: 16px;
-  background-color: #42b983;
+  background-color: #44db36;
   color: white;
   font-weight: bold;
   font-size: medium;
@@ -273,7 +253,7 @@ button {
 }
 
 button:hover {
-  background-color: #369f76;
+  background-color: #44db3676;
 }
 
 .error {

@@ -43,11 +43,6 @@ import ChoiceHome from './../components/ChoiceHome.vue';
     width: 100%;  
   }
 
-  h1{
-    font-size: xxx-large;
-    font-style: italic;
-    text-decoration: underline;
-  }
   p{
     width: 50%;
     max-width: 400px;
