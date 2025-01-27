@@ -207,7 +207,7 @@ export default {
           </p>
         </div>
 
-        <!-- Boutons pour deck en cours -->
+        <!-- Deck en cours -->
         <div v-if="element.date_fin_deck >= new Date().toISOString().split('T')[0]">
           <router-link v-if="nonParticipantDecks.has(element.id_deck)" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
             <button>Participer au deck</button>
