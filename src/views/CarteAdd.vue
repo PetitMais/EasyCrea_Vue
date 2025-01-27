@@ -67,7 +67,7 @@ import { useRouter } from 'vue-router';
 import DeckInfo from '@/components/DeckInfo.vue';
 import AleaCheck from '@/components/AleaCheck.vue';
 import CartePrint from '@/components/CartePrint.vue';
-import LogoutButton from '@/components/LogoutButton.vue';
+
 let userId = sessionStorage.getItem("id");
 console.log(userId);
 
@@ -82,7 +82,6 @@ const props = defineProps({
 });
 onMounted(() => {
   console.log("Valeur de l'id reçue :", props.id);
-  console.log("Valeur de l'id_createur reçue :", props.id_createur);
 });
 
 const idCarte = ref(null);
@@ -122,7 +121,7 @@ const submitForm = async () => {
     ordre: ordre,
     idDeck: props.id,
     idAdmin: null,
-    idCrea: props.id_createur,
+    idCrea: userId
   };
 
   console.log('Données formatées :', formattedData);
