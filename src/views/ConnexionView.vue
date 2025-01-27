@@ -182,6 +182,7 @@ async function handleSubmit(event) {
 </script>
 
 <template>
+<<<<<<< HEAD
   <h1 class="titre__view">Connexion {{ choiceRank }}</h1>
   <form @submit="handleSubmit" class="connexion">
     <label>
@@ -195,6 +196,29 @@ async function handleSubmit(event) {
     <button type="submit">Se connecter</button>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </form>
+=======
+  <section>
+    <h1 class="titre__view">Connexion</h1>
+    <form @submit="handleSubmit" class="connexion">
+        <label>
+          Adresse mail :
+          <input type="email" v-model="email" required>
+        </label>
+        <label>
+          Mot de passe :
+          <input type="password" v-model="password" required>
+        </label>
+        <button type="submit">Se connecter</button>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      </form>
+      <!-- Bouton affiché uniquement si choiceRank est 'créateur' -->
+      <RouterLink to="/inscription" v-if="choiceRank === 'créateur'">Inscription</RouterLink>
+      <!-- Bouton retour -->
+      <RouterLink to="/" id="back">Retour</RouterLink>
+  </section>
+
+
+>>>>>>> b5e0912f0e98c8074cf71d41160da407d7f4a2db
 
 </template>
 
@@ -207,11 +231,7 @@ async function handleSubmit(event) {
     align-items: center;
     gap: 25px;
 
-    h1{
-    font-size: xxx-large;
-    font-style: italic;
-    text-decoration: underline;   
-    }
+
   }
 
 .connexion{
@@ -239,7 +259,7 @@ button {
   width: 150px;
   margin-top: 10px;
   padding: 16px;
-  background-color: #42b983;
+  background-color: #44db36;
   color: white;
   font-weight: bold;
   font-size: medium;
@@ -249,7 +269,7 @@ button {
 }
 
 button:hover {
-  background-color: #369f76;
+  background-color: #44db3676;
 }
 
 .error {
