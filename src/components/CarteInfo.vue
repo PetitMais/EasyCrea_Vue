@@ -41,7 +41,7 @@ const router = useRouter();
 
 
 const props = defineProps({
-    id: {
+    id: { 
         type: [Number, String],
         required: true,
     },
