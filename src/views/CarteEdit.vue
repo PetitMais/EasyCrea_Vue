@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <h1>Modifier une carte au deck</h1>
         <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
         <div class="container">
@@ -28,6 +28,9 @@ const props = defineProps({
     }
 });
 onMounted(() => {
+    if (!userId) {
+        router.replace('/');
+    }
     console.log("Valeur de l'id reçue :", props.id);
 });
 
@@ -113,6 +116,21 @@ const sendCarteInfo = async (formattedData) => {
 </script>
 
 <style scoped>
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
+}
+
+.switch_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -131,8 +149,12 @@ button {
     width: 100%;
     padding: 8px;
     font-size: 14px;
-}
 
+}
+.pagination  {
+    margin: 1rem;
+    cursor: pointer;
+}
 .container {
     display: flex;
     flex-direction: column;

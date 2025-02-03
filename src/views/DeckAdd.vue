@@ -53,6 +53,14 @@ import { reactive, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import LogoutButton from '@/components/LogoutButton.vue';
 const router = useRouter();
+let userId = sessionStorage.getItem("id");
+
+onMounted(() => {
+  if (!userId) {
+    router.replace('/'); 
+  }
+  console.log("Valeur de l'id reçue :", props.id);
+});
 
 const data = ref({});
 const idDeck = ref(0);
