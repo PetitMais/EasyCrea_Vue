@@ -4,6 +4,7 @@
         <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
         <CarteInfo :id="Number(id)"></CarteInfo>
     </div>
+    <RouterLink to="/deck" id="back">Retour</RouterLink>
 </template>
 
 <script setup>

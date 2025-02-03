@@ -47,6 +47,7 @@
         <p><strong>Finance :</strong> {{ carteInfoUser.valeurs_choix2_fin }}</p>
       </div>
     </div>
+    <RouterLink to="/deck" id="back">Retour</RouterLink>
   </div>
 </template>
 

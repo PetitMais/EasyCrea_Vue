@@ -43,7 +43,7 @@
                 <p>Les données marquées d'une astérisque sont obligatoires.</p>
                 <button type="submit">Ajouter un deck et sa première carte</button>
             </div>
-
+            <RouterLink to="/deck" id="back">Retour</RouterLink>
         </form>
     </section>
 </template>
