@@ -102,6 +102,9 @@ button:hover {
   -webkit-transition: .4s;
   transition: .4s;
 }
+input{
+  opacity: 0;
+}
 
 input:checked+.slider {
   background-color: #44DB36;
