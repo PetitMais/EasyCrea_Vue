@@ -154,7 +154,7 @@ export default {
     // Détermine si un deck est terminé ou en cours
     const getDeckStatus = (deck) => {
       const today = new Date().toISOString().split("T")[0]; // Date actuelle
-      return deck.date_fin_deck < today || deck.count >= deck.nb_cartes ? "Terminé" : "En cours";
+      return deck.date_fin_deck <= today || deck.count === deck.nb_cartes ? "Terminé" : "En cours";
     };
 
     // Filtrage des decks terminés ou en cours
@@ -185,13 +185,12 @@ export default {
 
       <!-- ADMIN : Validation -->
       <div v-if="userRank === 'admin'">
-        <template v-if="element.date_fin_deck < new Date().toISOString().split('T')[0]">
+        <template v-if="getDeckStatus(element) === 'Terminé'">
           <router-link v-if="element.valid === 'no'" :to="{ name: 'carteEdit', params: { id: element.id_deck } }">
-            <button>Valider</button>
+            <button>Valider le deck</button>
           </router-link>
           <p v-else style="color: black;">✅ Deck validé</p>
         </template>
-        <button v-else>Voir le deck</button>
       </div>
 
       <!-- CRÉATEUR : Participation -->
