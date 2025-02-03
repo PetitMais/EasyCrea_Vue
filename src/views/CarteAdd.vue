@@ -72,18 +72,24 @@ import CartePrint from '@/components/CartePrint.vue';
 let userId = sessionStorage.getItem("id");
 console.log(userId);
 
+onMounted(() => {
+  if (!userId) {
+    router.replace('/');
+  }
+  console.log("Valeur de l'id reçue :", props.id);
+});
 
 const router = useRouter();
-
+if (sessionStorage.getItem("id")==null||sessionStorage.getItem("id")==undefined){
+  router.push('/');
+}
 const props = defineProps({
   id: { // id_deck
     type: [Number, String],
     required: true,
   }
 });
-onMounted(() => {
-  console.log("Valeur de l'id reçue :", props.id);
-});
+
 
 const idCarte = ref(null);
 const carteInfo = ref(null);

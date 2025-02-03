@@ -7,6 +7,7 @@
                 {{ page }}
             </button>
         </div>
+        
         <div v-if="currentCard" class="card-content">
             <p>{{ currentCard.texte_carte }}</p>
             <p>Choix 1 : {{ currentCard.valeurs_choix1 }}</p>

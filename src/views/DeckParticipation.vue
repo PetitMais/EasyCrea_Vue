@@ -1,54 +1,67 @@
 <template>
-      <LogoutButton></LogoutButton>
+  <LogoutButton></LogoutButton>
   <div>
-    <h1>Ta carte rng et ta participation</h1>
-    <h2>Ne fonctionne que pour id crea = 20 (lapin), à modif</h2>
+    <h1>Ta carte aléatoire et ta participation au deck</h1>
     <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
     <AleaCheck :id_createur="id_crea" :id_deck="Number(id)" @update:carteRng="handleCarteRng" />
     <!-- id_createur !!! -->
     <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
 
-    <div v-if="carteInfo" class="carte-details">
-      <h2>Une carte aléatoire vous a été attribuée :</h2>
-      <p>Il s'agit de la carte n°{{ carteInfo.ordre_soumission }} sur {{ nbCartes }}.</p>
-      <div>
-        <p><strong>Texte :</strong> {{ carteInfo.texte_carte }}</p>
+    <div v-if="carteInfo" class="rc_container">
+      <div class="rc_container_title">
+        <h2>Une carte aléatoire vous a été attribuée :</h2>
+        <p style="color: black;">Il s'agit de la carte n°{{ carteInfo.ordre_soumission }} sur {{ nbCartes }}.</p>
       </div>
+      <div class="card-details">
+        <div class="rc_text">
+          <strong>Texte :</strong>
+          <p style="color: black; word-wrap: break-word;">{{ carteInfo.texte_carte }}</p>
+        </div>
+        <div class="detail_choice">
+          <div class="choice">
+            <strong>Choix 1 :</strong>
+            <p style="color: black;"><strong>Population :</strong> {{ carteInfo.valeurs_choix1_pop }}</p>
+            <p style="color: black;"><strong>Finance :</strong> {{ carteInfo.valeurs_choix1_fin }}</p>
+          </div>
 
-      <div class="choice">
-        <strong>Choix 1 :</strong>
-        <p><strong>Population :</strong> {{ carteInfo.valeurs_choix1_pop }}</p>
-        <p><strong>Finance :</strong> {{ carteInfo.valeurs_choix1_fin }}</p>
-      </div>
-
-      <div class="choice">
-        <strong>Choix 2 :</strong>
-        <p><strong>Population :</strong> {{ carteInfo.valeurs_choix2_pop }}</p>
-        <p><strong>Finance :</strong> {{ carteInfo.valeurs_choix2_fin }}</p>
+          <div class="choice">
+            <strong>Choix 2 :</strong>
+            <p style="color: black;"><strong>Population :</strong> {{ carteInfo.valeurs_choix2_pop }}</p>
+            <p style="color: black;"><strong>Finance :</strong> {{ carteInfo.valeurs_choix2_fin }}</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div v-if="carteInfoUser" class="carte-details">
-      <h2>Voici votre contribution</h2>
-      <p>Il s'agit de la carte n°{{ carteInfoUser.ordre_soumission }} sur {{ nbCartes }}.</p>
-      <div>
-        <p><strong>Texte :</strong> {{ carteInfoUser.texte_carte }}</p>
+    <div v-if="carteInfoUser" class="rc_container">
+      <div class="rc_container_title">
+        <h2>Voici votre participation :</h2>
+        <p style="color: black;">Il s'agit de la carte n°{{ carteInfoUser.ordre_soumission }} sur {{ nbCartes }}.</p>
       </div>
+      <div class="card-details">
+        <div class="rc_text">
+          <strong>Texte :</strong>
+          <p style="color: black; word-wrap: break-word;">{{ carteInfoUser.texte_carte }}</p>
+        </div>
+        <div class="detail_choice">
+          <div class="choice">
+            <strong>Choix 1 :</strong>
+            <p style="color: black;"><strong>Population :</strong> {{ carteInfoUser.valeurs_choix1_pop }}</p>
+            <p style="color: black;"><strong>Finance :</strong> {{ carteInfoUser.valeurs_choix1_fin }}</p>
+          </div>
 
-      <div class="choice">
-        <strong>Choix 1 :</strong>
-        <p><strong>Population :</strong> {{ carteInfoUser.valeurs_choix1_pop }}</p>
-        <p><strong>Finance :</strong> {{ carteInfoUser.valeurs_choix1_fin }}</p>
-      </div>
+          <div class="choice">
+            <strong>Choix 2 :</strong>
+            <p style="color: black;"><strong>Population :</strong> {{ carteInfoUser.valeurs_choix2_pop }}</p>
+            <p style="color: black;"><strong>Finance :</strong> {{ carteInfoUser.valeurs_choix2_fin }}</p>
+          </div>
+        </div>
 
-      <div class="choice">
-        <strong>Choix 2 :</strong>
-        <p><strong>Population :</strong> {{ carteInfoUser.valeurs_choix2_pop }}</p>
-        <p><strong>Finance :</strong> {{ carteInfoUser.valeurs_choix2_fin }}</p>
       </div>
     </div>
     <RouterLink to="/deck" id="back">Retour</RouterLink>
   </div>
+
 </template>
 
 <script setup>
@@ -58,8 +71,16 @@ import DeckInfo from '@/components/DeckInfo.vue';
 import AleaCheck from '@/components/AleaCheck.vue';
 import CartePrint from '@/components/CartePrint.vue';
 import LogoutButton from '@/components/LogoutButton.vue';
+let userId = sessionStorage.getItem("id");
 
 const router = useRouter();
+onMounted(() => {
+  if (!userId) {
+    router.replace('/'); // replace empêche le retour arrière vers cette page
+  }
+  id_crea = Number(sessionStorage.getItem("id")); // = 21
+  console.log("id_crea récupéré de sessionStorage:", id_crea);
+});
 
 const props = defineProps({
   id: { // id_deck
@@ -70,10 +91,6 @@ const props = defineProps({
 
 let id_crea = null;
 
-onMounted(() => {
-  id_crea = Number(sessionStorage.getItem("id")); // = 21
-  console.log("id_crea récupéré de sessionStorage:", id_crea);
-});
 
 const idCarte = ref(null);
 const carteInfo = ref(null);
@@ -127,45 +144,69 @@ const fetchParticipationUser = async () => {
 
 
 <style scoped>
-
-.carte-details {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  padding: 20px;
-  background-color: #007bff17;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  margin: 20px;
+
 }
 
-.carte-details h2 {
+h1 {
+  font-size: xxx-large;
+  font-style: italic;
+  text-decoration: underline;
   text-align: center;
-  color: #555;
+  margin-bottom: 20px;
 }
 
-.carte-details p {
-  text-align: center;
-  color: #555;
-  font-size: 16px;
+.global_container {
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  color: black;
+}
+
+.rc_container {
+  background: white;
+  color: black;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  color: black;
+}
+
+.rc_container_title {
+  margin-bottom: 10px;
+}
+
+.card-details {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+  color: black;
+}
+
+.rc_text {
+  margin-bottom: 15px;
+}
+
+.detail_choice {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .choice {
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.choice p {
-  color: #555;
-  font-size: 14px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  flex: 1;
+  margin: 0 5px;
+  text-align: center;
 }
 </style>
-
