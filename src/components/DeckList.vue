@@ -96,7 +96,7 @@ export default {
   </section>
 </template> -->
 <script>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed } from "vue";
 
 export default {
   props: {
@@ -151,12 +151,15 @@ export default {
       }
     };
 
+    // Détermine si un deck est terminé ou en cours
+    const getDeckStatus = (deck) => {
+      const today = new Date().toISOString().split("T")[0]; // Date actuelle
+      return deck.date_fin_deck < today || deck.count >= deck.nb_cartes ? "Terminé" : "En cours";
+    };
+
     // Filtrage des decks terminés ou en cours
     const filteredDecks = computed(() => {
-      const today = new Date().toISOString().split("T")[0]; // Date actuelle au format YYYY-MM-DD
-      return data.value.filter(deck =>
-        props.showFinished ? deck.date_fin_deck < today : deck.date_fin_deck >= today
-      );
+      return data.value.filter(deck => props.showFinished ? getDeckStatus(deck) === "Terminé" : getDeckStatus(deck) === "En cours");
     });
 
     onMounted(async () => {
@@ -166,26 +169,26 @@ export default {
       }
     });
 
-    return { filteredDecks, userRank, nonParticipantDecks };
+    return { filteredDecks, userRank, nonParticipantDecks, getDeckStatus };
   }
 };
 </script>
 
 <template>
-  <section id="deckContainer" >
+  <section id="deckContainer">
     <article v-for="(element, index) in filteredDecks" :key="index" class="deck" lang="fr">
       <h2>{{ element.titre_deck }}</h2>
       <p class="text_fictif"><strong>Description :</strong> {{ element.body_deck }}</p>
       <p class="text_fictif"><strong>Date de début :</strong> {{ element.date_debut_deck }}</p>
       <p class="text_fictif"><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
-      <p class="text_fictif"><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p>
+      <p class="text_fictif"><strong>Nombre de cartes :</strong> {{ element.count }} / {{ element.nb_cartes }}  </p>
 
       <!-- ADMIN : Validation -->
       <div v-if="userRank === 'admin'">
         <template v-if="element.date_fin_deck < new Date().toISOString().split('T')[0]">
           <router-link v-if="element.valid === 'no'" :to="{ name: 'carteEdit', params: { id: element.id_deck } }">
-            <button >Valider</button>
-            </router-link>
+            <button>Valider</button>
+          </router-link>
           <p v-else style="color: black;">✅ Deck validé</p>
         </template>
         <button v-else>Voir le deck</button>
@@ -193,35 +196,36 @@ export default {
 
       <!-- CRÉATEUR : Participation -->
       <div v-if="userRank === 'créateur'">
-          <p  v-if="element.date_fin_deck >= new Date().toISOString().split('T')[0]" style="color: black;">
-            🟢 Deck en cours
+        <p v-if="getDeckStatus(element) === 'En cours'" style="color: black;"> Deck en cours</p>
+        <p v-else style="color: black;">🟢 Deck terminé</p>
+
+        <!-- Deck terminé -->
+        <div v-if="getDeckStatus(element) === 'Terminé'">
+          <p v-if="!nonParticipantDecks.has(element.id_deck)">
+            🔍 <router-link :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
+              <button style="color: black;">Regarder votre participation</button>
+            </router-link>
           </p>
+          <p style="color: black;">
+            {{ element.valid === "yes" ? "✅ Valide" : "⏳ En cours de validation" }}
+          </p>
+        </div>
 
-          <!-- Deck terminé -->
-          <div v-else>
-            <p v-if="!nonParticipantDecks.has(element.id_deck)">
-              🔍 <router-link :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
-                <button style="color: black;">Regarder votre participation</button>
-              </router-link>
-            </p>
-            <p style="color: black;">
-              {{ element.valid === "yes" ? "✅ Valide" : "⏳ En cours de validation" }}
-            </p>
-          </div>
-
-          <!-- Deck en cours -->
-          <div v-if="element.date_fin_deck >= new Date().toISOString().split('T')[0]">
-            <router-link v-if="nonParticipantDecks.has(element.id_deck)" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
-              <button>Participer au deck</button>
-            </router-link>
-            <router-link v-else :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
-              <button>Regarder votre participation</button>
-            </router-link>
-          </div>
+        <!-- Deck en cours -->
+        <div v-if="getDeckStatus(element) === 'En cours'">
+          <router-link v-if="nonParticipantDecks.has(element.id_deck)" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
+            <button>Participer au deck</button>
+          </router-link>
+          <router-link v-else :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
+            <button>Regarder votre participation</button>
+          </router-link>
+        </div>
       </div>
     </article>
   </section>
 </template>
+
+
 
 <style scoped>
   section{
