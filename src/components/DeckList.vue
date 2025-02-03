@@ -1,100 +1,3 @@
-<!-- <script>
-import { ref, onMounted, computed } from 'vue';
-
-export default {
-  props: {
-    showFinished: Boolean // Récupération de l'état du switch
-  },
-  setup(props) {
-    const data = ref([]); // Liste des decks
-    const userRank = ref(sessionStorage.getItem("userRank"));
-    const userId = ref(sessionStorage.getItem("id"));
-
-    const fetchDecks = async () => {
-      let url;
-      let options;
-
-      if (userRank.value === "admin") {
-        url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck/participation/admin";
-        options = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: userId.value })
-        };
-      } else {
-        url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck";
-        options = { method: "GET" };
-      }
-
-      try {
-        const response = await fetch(url, options);
-        if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-        data.value = await response.json();
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
-      }
-    };
-
-    // Fonction pour valider un deck
-    const validateDeck = async (deckId) => {
-      try {
-        const response = await fetch(`https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck/validate/${deckId}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ adminId: userId.value }) // Envoyer l'ID de l'admin
-        });
-
-        if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-
-        // Mettre à jour l'état du deck validé
-        const updatedDeck = data.value.find(deck => deck.id_deck === deckId);
-        if (updatedDeck) {
-          updatedDeck.valid = "yes";
-        }
-      } catch (error) {
-        console.error("Erreur lors de la validation du deck :", error);
-      }
-    };
-
-    // Filtrage des decks terminés ou en cours
-    const filteredDecks = computed(() => {
-      const today = new Date().toISOString().split("T")[0]; // Date actuelle au format YYYY-MM-DD
-      return data.value.filter(deck =>
-        props.showFinished ? deck.date_fin_deck < today : deck.date_fin_deck >= today
-      );
-    });
-
-    onMounted(fetchDecks);
-
-    return { filteredDecks, userRank, validateDeck };
-  }
-};
-</script>
-
-<template>
-  <section id="deckContainer">
-    <article v-for="(element, index) in filteredDecks" :key="index" class="deck">
-      <h2>{{ element.titre_deck }}</h2>
-      <p><strong>Description :</strong> {{ element.body_deck }}</p>
-      <p><strong>Date de début :</strong> {{ element.date_debut_deck }}</p>
-      <p><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
-      <p><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p> -->
-
-      <!-- Afficher le bouton "Valider" si le deck n'est pas encore validé -->
-      <!-- <div v-if="userRank === 'admin'">
-        <button v-if="element.valid === 'no'">Valider</button>
-        <p v-else>validé ✅</p>
-      </div>
-
-      <router-link v-if="userRank === 'créateur'" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
-        <button>Participer au deck</button>
-      </router-link>
-      <router-link v-if="userRank === 'créateur'" :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
-        <button>Afficher votre participation</button>
-      </router-link>
-    </article>
-  </section>
-</template> -->
 <script>
 import { ref, onMounted, computed } from "vue";
 
@@ -103,12 +6,15 @@ export default {
     showFinished: Boolean // Récupération de l'état du switch
   },
   setup(props) {
-    const data = ref([]); // Liste des decks
+    const data = ref([]);
     const userRank = ref(sessionStorage.getItem("userRank"));
     const userId = ref(sessionStorage.getItem("id"));
-    const nonParticipantDecks = ref(new Set()); // Ensemble des decks où l'utilisateur n'a pas participé
+    const nonParticipantDecks = ref(new Set());
 
-    // Récupère la liste des decks
+    /**
+     * Récupère la liste des decks
+     * @returns {Promise<void>}
+     */ 
     const fetchDecks = async () => {
       let url;
       let options;
@@ -134,7 +40,10 @@ export default {
       }
     };
 
-    // Vérifie si l'utilisateur a participé aux decks
+    /**
+     * Vérifie si l'utilisateur a participé aux decks
+     * @returns {Promise<void>}
+     */
     const fetchNonParticipantDecks = async () => {
       try {
         const response = await fetch("https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck/noparticipation", {
@@ -151,17 +60,29 @@ export default {
       }
     };
 
-    // Détermine si un deck est terminé ou en cours
+    /**
+     * Détermine si un deck est terminé ou en cours
+     * @param deck
+     * @returns {string} 
+     */
     const getDeckStatus = (deck) => {
-      const today = new Date().toISOString().split("T")[0]; // Date actuelle
+      const today = new Date().toISOString().split("T")[0];
       return deck.date_fin_deck <= today || deck.count === deck.nb_cartes ? "Terminé" : "En cours";
     };
 
-    // Filtrage des decks terminés ou en cours
+    /**
+     * Filtrage des decks terminés ou en cours
+     * @type {ComputedRef<[]>}
+     * @returns {ComputedRef<[]>}
+     */
     const filteredDecks = computed(() => {
       return data.value.filter(deck => props.showFinished ? getDeckStatus(deck) === "Terminé" : getDeckStatus(deck) === "En cours");
     });
 
+    /**
+     * affiche la liste des decks en fonction du rôle de l'utilisateur et de leur état (en cours ou terminé).
+     * @returns {{filteredDecks: ComputedRef<[]>, userRank: Ref<null|string>, nonParticipantDecks: Ref<Set<unknown>>, getDeckStatus: (function(*): string)}}
+     */
     onMounted(async () => {
       await fetchDecks();
       if (userRank.value === "créateur") {
