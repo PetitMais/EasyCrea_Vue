@@ -2,7 +2,9 @@
     <div>
         <h1>Modifier une carte au deck</h1>
         <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
-        <CarteInfo :id="Number(id)"></CarteInfo>
+        <div class="container">
+            <CarteInfo :id="Number(id)"></CarteInfo>
+        </div>
     </div>
 </template>
 
@@ -11,7 +13,6 @@ import { reactive, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import DeckInfo from '@/components/DeckInfo.vue';
 import CarteInfo from '@/components/CarteInfo.vue';
-import LogoutButton from '@/components/LogoutButton.vue';
 
 let userId = sessionStorage.getItem("id");
 console.log(userId);
@@ -129,6 +130,13 @@ button {
     width: 100%;
     padding: 8px;
     font-size: 14px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .carte-details {

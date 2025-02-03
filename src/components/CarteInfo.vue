@@ -160,8 +160,8 @@ onMounted(() => {
 
 <style scoped>
 .card-container {
+    width: 65%;
     text-align: center;
-    background-color: #0e0e30;
     padding: 20px;
     color: white;
     border-radius: 8px;
@@ -221,12 +221,17 @@ button.validated {
 
 .card-content form {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 textarea,
 input {
     display: block;
-    width: 100%;
+    width: 250px;
+    height: 30px;
     margin: 5px 0;
     padding: 8px;
     border-radius: 4px;
@@ -234,6 +239,6 @@ input {
 }
 
 textarea {
-    resize: none;
-}
+    height: 80px;
+    }
 </style>
