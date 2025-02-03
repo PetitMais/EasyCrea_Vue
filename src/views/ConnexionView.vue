@@ -61,7 +61,7 @@ async function handleSubmit(event) {
 
 <template>
   <section>
-    <h1 class="titre__view">Connexion {{ choiceRank }}</h1>
+    <h1 class="titre__view">Connexion</h1>
     <form @submit="handleSubmit" class="connexion">
       <label>
         Adresse mail :
