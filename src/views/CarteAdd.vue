@@ -57,6 +57,7 @@
         <p>Les données marquées d'une astérisque sont obligatoires.</p>
         <button type="submit">Ajouter la carte</button>
         </form>
+        <RouterLink to="/deck" id="back">Retour</RouterLink>
       </div>
     </section>
 </template>
