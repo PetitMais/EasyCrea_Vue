@@ -1,6 +1,5 @@
 <template>
-  <LogoutButton></LogoutButton>
-  <div>
+  <section>
     <h1>Ta carte aléatoire et ta participation au deck</h1>
     <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
     <AleaCheck :id_createur="id_crea" :id_deck="Number(id)" @update:carteRng="handleCarteRng" />
@@ -58,8 +57,8 @@
 
       </div>
     </div>
-    <RouterLink to="/deck" id="back">Retour</RouterLink>
-  </div>
+  </section>
+  <RouterLink to="/deck" id="back">Retour</RouterLink>
 
 </template>
 
@@ -75,14 +74,14 @@ let userId = sessionStorage.getItem("id");
 const router = useRouter();
 onMounted(() => {
   if (!userId) {
-    router.replace('/'); 
+    router.replace('/');
   }
   id_crea = Number(sessionStorage.getItem("id")); // = 21
-  
+
 });
 
 const props = defineProps({
-  id: { 
+  id: {
     type: [Number, String],
     required: true,
   },
@@ -97,7 +96,7 @@ const carteInfoUser = ref(null);
 const nbCartes = ref(null);
 
 const handleCarteRng = (id_carte_rng) => {
- 
+
   idCarte.value = id_carte_rng;
 };
 
@@ -107,7 +106,7 @@ const handleCarteInfo = (info) => {
 };
 
 const handleNbCartes = async (count) => {
- 
+
   nbCartes.value = count;
 
   if (id_crea) {
@@ -169,6 +168,7 @@ h1 {
 }
 
 .rc_container {
+max-width: 400px;
   background: white;
   color: black;
   border-radius: 8px;
