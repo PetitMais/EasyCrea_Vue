@@ -120,7 +120,7 @@ button:hover {
 </style> -->
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const router = useRouter();
 const email = ref('');
@@ -196,6 +196,10 @@ async function handleSubmit(event) {
       <button type="submit">Se connecter</button>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </form>
+     <!-- Bouton affiché uniquement si choiceRank est 'créateur' -->
+     <RouterLink to="/inscription" v-if="choiceRank === 'créateur'">Inscription</RouterLink>
+      <!-- Bouton retour -->
+    <RouterLink to="/" id="back">Retour</RouterLink>
   </section>
 
 </template>
