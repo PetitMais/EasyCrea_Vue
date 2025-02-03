@@ -183,7 +183,9 @@ export default {
       <!-- ADMIN : Validation -->
       <div v-if="userRank === 'admin'">
         <template v-if="element.date_fin_deck < new Date().toISOString().split('T')[0]">
-          <button v-if="element.valid === 'no'">Valider</button>
+          <router-link v-if="element.valid === 'no'" :to="{ name: 'carteEdit', params: { id: element.id_deck } }">
+            <button >Valider</button>
+            </router-link>
           <p v-else style="color: black;">✅ Deck validé</p>
         </template>
         <button v-else>Voir le deck</button>
