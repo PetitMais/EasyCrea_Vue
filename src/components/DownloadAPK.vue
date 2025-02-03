@@ -1,7 +1,7 @@
 <template>
     <div>
       <a :href="apkLink" download>
-        <button class="btn-download">Download DeckOuvert</button>
+        Télécharger DeckOuvert
       </a>
     </div>
   </template>
