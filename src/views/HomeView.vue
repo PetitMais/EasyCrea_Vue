@@ -1,5 +1,6 @@
 <script setup>
 import ChoiceHome from './../components/ChoiceHome.vue';
+import DownloadAPK from '@/components/DownloadAPK.vue';
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import ChoiceHome from './../components/ChoiceHome.vue';
     <div>
       <p>Si vous voulez y jouer:</p>
       <a href="https://expo.dev/accounts/twist404/projects/deckouvert/builds/aa4d12a8-7e10-4863-a297-528da267164e">Télécharger le jeu</a>
-      <a href="./../assets/application-25c56845-3aec-4620-9f8e-f595086892f6.apk" download>Télécharger DeckOuvert</a>
+      <DownloadAPK></DownloadAPK>
     </div>
     <ChoiceHome/>
   </section>
