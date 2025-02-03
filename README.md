@@ -1,33 +1,16 @@
 # EasyCrea
-This template should help get you started developing with Vue 3 in Vite.
-## Recommended IDE Setup
+C'est un site dont le but est de créer des cartes dans des decks (compte créateur) et de créer des decks (compte administrateur) qui pourront ensuite être joués dans l'application DeckOuverte.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Partie Administrateur (un peu comme des modérateurs) :
+Les administrateurs sont les seuls à pouvoir créer des decks et à les valider pour qu'ils soient accessibles. Ils ont également la possibilité de modifier le contenu d'une carte créée par un utilisateur si celui-ci ne leur convient pas (modification uniquement si le deck a été créé par l'administrateur en question).
 
-## Customize configuration
+Partie Créatrice :
+Les créateurs peuvent participer une seule fois à un deck avec une carte exemple. Ils peuvent ensuite voir leur participation avec la carte exemple affichée au-dessus. Ils peuvent également consulter le statut du deck (en cours ou terminé).
+Si le deck est terminé et qu'ils y ont participé, ils peuvent toujours voir leur contribution.
+S'ils n'ont pas participé, ils ne peuvent voir que le statut du deck.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Démo en ligne
+[https://easycreavue.netlify.app/](https://easycreavue.netlify.app/)
 
-## Project Setup
 
-```sh
-npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
