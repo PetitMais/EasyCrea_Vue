@@ -172,55 +172,98 @@ export default {
 </script>
 
 <template>
-  <section id="deckContainer">
-    <article v-for="(element, index) in filteredDecks" :key="index" class="deck">
+  <section id="deckContainer" >
+    <article v-for="(element, index) in filteredDecks" :key="index" class="deck" lang="fr">
       <h2>{{ element.titre_deck }}</h2>
-      <p><strong>Description :</strong> {{ element.body_deck }}</p>
-      <p><strong>Date de début :</strong> {{ element.date_debut_deck }}</p>
-      <p><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
-      <p><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p>
+      <p class="text_fictif"><strong>Description :</strong> {{ element.body_deck }}</p>
+      <p class="text_fictif"><strong>Date de début :</strong> {{ element.date_debut_deck }}</p>
+      <p class="text_fictif"><strong>Date de fin :</strong> {{ element.date_fin_deck }}</p>
+      <p class="text_fictif"><strong>Nombre de cartes :</strong> {{ element.nb_cartes }}</p>
 
       <!-- ADMIN : Validation -->
       <div v-if="userRank === 'admin'">
         <template v-if="element.date_fin_deck < new Date().toISOString().split('T')[0]">
           <button v-if="element.valid === 'no'">Valider</button>
-          <p v-else>✅ Deck validé</p>
+          <p v-else style="color: black;">✅ Deck validé</p>
         </template>
         <button v-else>Voir le deck</button>
       </div>
 
       <!-- CRÉATEUR : Participation -->
       <div v-if="userRank === 'créateur'">
-        <p v-if="element.date_fin_deck >= new Date().toISOString().split('T')[0]">
-          🟢 Deck en cours
-        </p>
+          <p  v-if="element.date_fin_deck >= new Date().toISOString().split('T')[0]" style="color: black;">
+            🟢 Deck en cours
+          </p>
 
-        <!-- Deck terminé -->
-        <div v-else>
-          <p v-if="!nonParticipantDecks.has(element.id_deck)">
-            🔍 <router-link :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
+          <!-- Deck terminé -->
+          <div v-else>
+            <p v-if="!nonParticipantDecks.has(element.id_deck)">
+              🔍 <router-link :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
+                <button style="color: black;">Regarder votre participation</button>
+              </router-link>
+            </p>
+            <p style="color: black;">
+              {{ element.valid === "yes" ? "✅ Valide" : "⏳ En cours de validation" }}
+            </p>
+          </div>
+
+          <!-- Deck en cours -->
+          <div v-if="element.date_fin_deck >= new Date().toISOString().split('T')[0]">
+            <router-link v-if="nonParticipantDecks.has(element.id_deck)" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
+              <button>Participer au deck</button>
+            </router-link>
+            <router-link v-else :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
               <button>Regarder votre participation</button>
             </router-link>
-          </p>
-          <p>
-            {{ element.valid === "yes" ? "✅ Valide" : "⏳ En cours de validation" }}
-          </p>
-        </div>
-
-        <!-- Deck en cours -->
-        <div v-if="element.date_fin_deck >= new Date().toISOString().split('T')[0]">
-          <router-link v-if="nonParticipantDecks.has(element.id_deck)" :to="{ name: 'carteAdd', params: { id: element.id_deck } }">
-            <button>Participer au deck</button>
-          </router-link>
-          <router-link v-else :to="{ name: 'deckParticipation', params: { id: element.id_deck } }">
-            <button>Regarder votre participation</button>
-          </router-link>
-        </div>
+          </div>
       </div>
     </article>
   </section>
 </template>
 
+<style scoped>
+  section{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .deck{
+    width: 300px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 15px;
+
+  }
+  h2{
+    color: black;
+    margin: 0 15px;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    width: 200px;
+    
+  }
+  .text_fictif{
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    word-break: break-all;
+    margin: 0 15px;
+  }
+</style>
 
 
   

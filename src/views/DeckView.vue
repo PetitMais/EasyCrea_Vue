@@ -1,14 +1,16 @@
 <template>
-  <section>
+  <section class="container">
+    
+    <h1>Liste des decks</h1>
     <LogoutButton/>
-        <h1>Liste des decks</h1>
-
     <!-- Checkbox pour filtrer les decks terminés -->
-    <label class="switch">
-      <input type="checkbox" v-model="showFinished">
-      <span class="slider round"></span>
-    </label>
-    <span>{{ showFinished ? "Terminés" : "En cours" }}</span>
+     <div class="switch_container">
+        <label class="switch">
+          <input type="checkbox" v-model="showFinished">
+          <span class="slider round"></span>
+        </label>
+        <span>{{ showFinished ? "Terminés" : "En cours" }}</span>
+     </div>
 
     <button v-if="userRank === 'admin'" @click="$router.push('/deck/add')">Ajouter un deck</button>
 
@@ -33,6 +35,22 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content:start;
+    align-items: center;
+    gap: 15px;
+  }
+  .switch_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+      align-items: center;
+  }
+</style>
 
 <style>
 button {

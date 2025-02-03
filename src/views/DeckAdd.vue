@@ -1,44 +1,51 @@
 <template>
-    <LogoutButton></LogoutButton>
-    <div>
+    <section>
         <h1>Ajouter un deck</h1>
 
         <form @submit.prevent="submitForm">
-            <label for="title">Titre :*</label>
-            <input v-model="formData.title" id="title" type="text" minlength="3" maxlength="100" required>
+            <div class="deck_container">
+                <label for="title">Titre :*</label>
+                <input v-model="formData.title" id="title" type="text" minlength="3" maxlength="100" placeholder="Ex: Paradox" required>
 
-            <label for="texte">Texte :*</label>
-            <textarea v-model="formData.texte" id="texte" maxlength="150" required></textarea>
+                <label for="texte">Description :*</label>
+                    <textarea v-model="formData.texte" id="texte" maxlength="150" placeholder="Ex: Deck basé sur un univers en parallèle..." required></textarea>
 
-            <label for="date">Date de fin :*</label>
-            <input v-model="formData.date" id="date" type="date" required />
+                <label for="date">Date de fin :*</label>
+                <input v-model="formData.date" id="date" type="date" required />
 
-            <label for="nbCartes">Nombre de carte :*</label>
-            <input v-model="formData.nbCartes" id="nbCartes" type="number" min="1" required />
-
-            <br>
-            <h2>Ajouter la première carte</h2>
-            <label for="texteCarte">Texte :*</label>
-            <textarea v-model="formData.texteCarte" id="texteCarte" type="text" minlength="50" maxlength="280"
-                required></textarea>
-
-            <label for="choice1">Choix n°1 :*</label>
-            <div>
-                <input v-model="formData.population1" type="number" placeholder="Population" required />
-                <input v-model="formData.finance1" type="number" placeholder="Finance" required />
+                <label for="nbCartes">Nombre de carte :*</label>
+                <input v-model="formData.nbCartes" id="nbCartes" type="number" min="1" placeholder="Nombre de carte" required />
             </div>
 
-            <label for="choice2">Choix n°2 :*</label>
-            <div>
-                <input v-model="formData.population2" type="number" placeholder="Population" required />
-                <input v-model="formData.finance2" type="number" placeholder="Finance" required />
+            <div class="card_container">                
+                <h2>Ajouter la première carte</h2>
+                <div>
+                    <label for="texteCarte">Texte :*</label>
+                        <textarea v-model="formData.texteCarte" id="texteCarte" type="text" minlength="50" maxlength="280" placeholder="Ex: Contexte, choix1 et choix 2" required></textarea>
+                </div>
+               
+                <div>
+                    <label for="choice1">Choix n°1 :*</label>
+                    <div>
+                        <input v-model="formData.population1" type="number" placeholder="Population" required />
+                        <input v-model="formData.finance1" type="number" placeholder="Finance" required />
+                    </div>
+                </div>
+                <div>
+                    <label for="choice2">Choix n°2 :*</label>
+                    <div>
+                        <input v-model="formData.population2" type="number" placeholder="Population" required />
+                        <input v-model="formData.finance2" type="number" placeholder="Finance" required />
+                    </div>
+                </div>
+            </div>
+            <div class="sub">
+                <p>Les données marquées d'une astérisque sont obligatoires.</p>
+                <button type="submit">Ajouter un deck et sa première carte</button>
             </div>
 
-            <br>
-            <p>Les données marquées d'une astérisque sont obligatoires.</p>
-            <button type="submit">Ajouter un deck et sa première carte</button>
         </form>
-    </div>
+    </section>
 </template>
 
 <script setup>
@@ -159,34 +166,44 @@ const sendCarteInfo = async (formattedDataCarte) => {
 </script>
 
 <style scoped>
-form {
+h1{
+    text-align: center;
+    padding: 15px;
+}
+form{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.deck_container, .card_container{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 5px;
+}
+.deck_container input{
+    height:35px;
 }
 
-label {
-    font-weight: bold;
+.card_container>div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.card_container input{
+    width: 50%;
+    height:30px;
+}
+.card_container textarea{
+        height:70px;
 }
 
-input,
-textarea,
-button {
-    padding: 8px;
-    font-size: 14px;
-}
-
-.carte-details {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding: 10px;
-}
-
-.carte-details>h2 {
-    text-align: center;
-}
-
-.choice p {
-    text-indent: 1rem;
+.sub{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 </style>
