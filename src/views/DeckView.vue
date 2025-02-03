@@ -1,8 +1,7 @@
 <template>
-  <LogoutButton></LogoutButton>
-
-  <main>
-    <h1>Liste des decks</h1>
+  <section>
+    <LogoutButton/>
+        <h1>Liste des decks</h1>
 
     <!-- Checkbox pour filtrer les decks terminés -->
     <label class="switch">
@@ -15,17 +14,17 @@
 
     <!-- Passer les filtres à DeckList -->
     <DeckList :showFinished="showFinished" />
-  </main>
+  </section>
 </template>
 
 <script>
 import { ref } from 'vue';
 import DeckList from '@/components/DeckList.vue';
-import LogoutButton from './../components/LogoutButton.vue';
+import LogoutButton from '@/components/LogoutButton.vue';
 
 const userRank = sessionStorage.getItem("userRank");
 export default {
-  components: { DeckList },
+  components: { DeckList, LogoutButton},
   setup() {
     const userRank = ref(sessionStorage.getItem("userRank"));
     const showFinished = ref(false); // Par défaut, afficher les decks en cours
