@@ -70,13 +70,12 @@ import AleaCheck from '@/components/AleaCheck.vue';
 import CartePrint from '@/components/CartePrint.vue';
 
 let userId = sessionStorage.getItem("id");
-console.log(userId);
+
 
 onMounted(() => {
   if (!userId) {
     router.replace('/');
   }
-  console.log("Valeur de l'id reçue :", props.id);
 });
 
 const router = useRouter();
@@ -84,7 +83,7 @@ if (sessionStorage.getItem("id")==null||sessionStorage.getItem("id")==undefined)
   router.push('/');
 }
 const props = defineProps({
-  id: { // id_deck
+  id: { 
     type: [Number, String],
     required: true,
   }
@@ -96,24 +95,21 @@ const carteInfo = ref(null);
 const nbCartes = ref(null);
 
 const handleCarteRng = (id_carte_rng) => {
-  console.log('Valeur de carteRng reçue depuis le component:', id_carte_rng);
   idCarte.value = id_carte_rng;
 };
 
 const handleCarteInfo = (info) => {
-  console.log('Informations de la carte reçues :', info);
   carteInfo.value = info;
 };
 
 const handleNbCartes = (count) => {
-  console.log('Nombre de cartes reçu du composant DeckInfo:', count);
+
   nbCartes.value = count;
 };
 
 const formData = reactive({});
 
 const submitForm = async () => {
-  console.log('Données du formulaire :', formData);
 
   const ordre = await fetchOrderDeck();
 
@@ -131,7 +127,6 @@ const submitForm = async () => {
     idCrea: userId
   };
 
-  console.log('Données formatées :', formattedData);
 
   await sendCarteInfo(formattedData);
   router.push('/deck');
@@ -277,7 +272,7 @@ textarea{
 }
 
 button {
-  background-color: #1db954; /* Vert vif */
+  background-color: #1db954; 
   color: white;
   border: none;
   padding: 10px 20px;
@@ -287,7 +282,7 @@ button {
 }
 
 button:hover {
-  background-color: #17a74a; /* Vert un peu plus foncé au survol */
+  background-color: #17a74a; 
 }
 
 p {

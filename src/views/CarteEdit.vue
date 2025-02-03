@@ -16,13 +16,13 @@ import DeckInfo from '@/components/DeckInfo.vue';
 import CarteInfo from '@/components/CarteInfo.vue';
 
 let userId = sessionStorage.getItem("id");
-console.log(userId);
+
 
 
 const router = useRouter();
 
 const props = defineProps({
-    id: { // id_deck
+    id: {
         type: [Number, String],
         required: true,
     }
@@ -31,26 +31,22 @@ onMounted(() => {
     if (!userId) {
         router.replace('/');
     }
-    console.log("Valeur de l'id reçue :", props.id);
 });
 
 const carteInfo = ref(null);
 const nbCartes = ref(null);
 
 const handleCarteInfo = (info) => {
-    console.log('Informations de la carte reçues :', info);
     carteInfo.value = info;
 };
 
 const handleNbCartes = (count) => {
-    console.log('Nombre de cartes reçu du composant DeckInfo:', count);
     nbCartes.value = count;
 };
 
 const formData = reactive({});
 
 const submitForm = async () => {
-    console.log('Données du formulaire :', formData);
 
     const ordre = await fetchOrderDeck();
 
@@ -68,7 +64,7 @@ const submitForm = async () => {
         idCrea: props.id_createur,
     };
 
-    console.log('Données formatées :', formattedData);
+    
 
     await sendCarteInfo(formattedData);
     router.push('/deck');

@@ -11,8 +11,7 @@ const props = defineProps({
     }
 });
 
-const data = ref({}); // Objet vide pour stocker les données
-
+const data = ref({}); 
 const fetchCarteInfo = async () => {
     const url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/carte/id";
     const options = {
@@ -24,7 +23,6 @@ const fetchCarteInfo = async () => {
         const response = await fetch(url, options);
         const jsonData = await response.json();
         data.value = jsonData;
-        console.log("Info récupérée :", data.value);
 
         if (data.value.valeurs_choix1 && data.value.valeurs_choix2) {
             [data.value.valeurs_choix1_pop, data.value.valeurs_choix1_fin] = data.value.valeurs_choix1.split('/');
@@ -32,7 +30,6 @@ const fetchCarteInfo = async () => {
         }        
 
         emit('update:carteInfo', data.value);
-        console.log(`L'ordre de soumission est ${data.value.ordre_soumission}`);
         emit('update:ordreSoumission', data.value.ordre_soumission);
     } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);

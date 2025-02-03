@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-// Champs du formulaire
+
 const name = ref('');
 const mail = ref('');
 const password = ref('');
@@ -12,14 +12,13 @@ const sexe = ref('');
 const date = ref('');
 const errorMessage = ref('');
 
-// Calculer la date maximale pour la naissance (aujourd'hui)
+
 const maxDate = new Date().toISOString().split('T')[0];
 
-// Fonction pour gérer l'inscription
 async function handleInscription(event) {
   event.preventDefault();
 
-  // Vérification côté client de la date de naissance
+  
   if (date.value > maxDate) {
     errorMessage.value = 'La date de naissance ne peut pas être dans le futur.';
     return;
@@ -42,23 +41,18 @@ async function handleInscription(event) {
       body: JSON.stringify(bodyData),
     });
 
-    // Assurez-vous que la réponse est correcte
+    
     if (!response.ok) {
       throw new Error(`Erreur HTTP : ${response.status}`);
     }
-
-    // Attendez que la réponse soit convertie en JSON
     const data = await response.json();
-    console.log(data); // Vérifiez ce que l'API retourne
+     
 
     if (data.success === true) {
-      // Si l'inscription réussit, redirigez l'utilisateur vers la page '/deck'
       sessionStorage.setItem("userRank", "créateur");
       sessionStorage.removeItem("choiceRank");
       router.push('/deck');
     } else {
-      // Sinon, affichez le message d'erreur
-      console.log(data);
       document.getElementById("mail").style.borderColor = "red";
       errorMessage.value = data.message || "L'email est déjà utilisé";
     }
@@ -99,7 +93,6 @@ async function handleInscription(event) {
       <button type="submit">S'inscrire</button>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </form>
-    <!-- Bouton retour -->
     <RouterLink to="/" id="back">Retour</RouterLink>
   </section>
 </template>

@@ -65,7 +65,6 @@ const getAllCarteFromDeck = async () => {
         const jsonData = await response.json();
         if (response.ok) {
             data.value = jsonData;
-            console.log("Cartes récupérées :", jsonData);
         } else {
             console.error("Erreur lors de la récupération des cartes");
         }
@@ -117,8 +116,6 @@ const submitUpdatedCard = async () => {
     try {
         const response = await fetch(url, options);
         if (response.ok) {
-            console.log("Carte mise à jour avec succès");
-            // Update the card in the local data
             const index = data.value.findIndex((card) => card.id_carte === editableCard.value.id_carte);
             if (index !== -1) {
                 data.value[index] = { ...editableCard.value };

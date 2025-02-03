@@ -24,7 +24,7 @@ const props = defineProps({
     }
 });
 
-const data = ref({}); // objet vide
+const data = ref({});
 
 const fetchRngInfo = async () => {
     const url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/carte/alea/search";
@@ -37,13 +37,10 @@ const fetchRngInfo = async () => {
         const response = await fetch(url, options);
         const jsonData = await response.json();
         data.value = jsonData;
-        console.log("info récupéré :", data.value);
 
         if (data.value.inexistant === true) {
-            console.log("La carte aléatoire n'existe pas, création en cours...");
             await createCarte();
         } else if (typeof data.value.num_carte !== 'undefined') {
-            console.log(`Le numéro de la carte appelée est ${data.value.num_carte}`);
             emit('update:carteRng', data.value.num_carte);
         }
     } catch (error) {
@@ -61,7 +58,6 @@ const createCarte = async () => {
     try {
         const response = await fetch(url2, options2);
         if (response.ok) {
-            console.log("Carte RNG créée");
             fetchRngInfo();
         } else {
             console.error("Erreur lors de la création de la carte");

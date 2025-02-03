@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from "vue";
 
 export default {
   props: {
-    showFinished: Boolean // Récupération de l'état du switch
+    showFinished: Boolean
   },
   setup(props) {
     const data = ref([]);
@@ -11,10 +11,6 @@ export default {
     const userId = ref(sessionStorage.getItem("id"));
     const nonParticipantDecks = ref(new Set());
 
-    /**
-     * Récupère la liste des decks
-     * @returns {Promise<void>}
-     */ 
     const fetchDecks = async () => {
       let url;
       let options;
@@ -40,10 +36,6 @@ export default {
       }
     };
 
-    /**
-     * Vérifie si l'utilisateur a participé aux decks
-     * @returns {Promise<void>}
-     */
     const fetchNonParticipantDecks = async () => {
       try {
         const response = await fetch("https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck/noparticipation", {
@@ -60,29 +52,17 @@ export default {
       }
     };
 
-    /**
-     * Détermine si un deck est terminé ou en cours
-     * @param deck
-     * @returns {string} 
-     */
     const getDeckStatus = (deck) => {
       const today = new Date().toISOString().split("T")[0];
       return deck.date_fin_deck <= today || deck.count === deck.nb_cartes ? "Terminé" : "En cours";
     };
 
-    /**
-     * Filtrage des decks terminés ou en cours
-     * @type {ComputedRef<[]>}
-     * @returns {ComputedRef<[]>}
-     */
+
     const filteredDecks = computed(() => {
       return data.value.filter(deck => props.showFinished ? getDeckStatus(deck) === "Terminé" : getDeckStatus(deck) === "En cours");
     });
 
-    /**
-     * affiche la liste des decks en fonction du rôle de l'utilisateur et de leur état (en cours ou terminé).
-     * @returns {{filteredDecks: ComputedRef<[]>, userRank: Ref<null|string>, nonParticipantDecks: Ref<Set<unknown>>, getDeckStatus: (function(*): string)}}
-     */
+   
     onMounted(async () => {
       await fetchDecks();
       if (userRank.value === "créateur") {

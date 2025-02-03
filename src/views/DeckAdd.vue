@@ -59,7 +59,7 @@ onMounted(() => {
   if (!userId) {
     router.replace('/'); 
   }
-  console.log("Valeur de l'id reçue :", props.id);
+ 
 });
 
 const data = ref({});
@@ -68,9 +68,8 @@ const idDeck = ref(0);
 const formData = reactive({});
 
 const submitForm = async () => {
-    console.log("Données du formulaire :", formData);
     const adminId = sessionStorage.getItem("id");
-    console.log(adminId);
+   
 
     const formattedData = {
         titre: formData.title,
@@ -82,7 +81,7 @@ const submitForm = async () => {
         id_administrateur: Number(adminId)
     };
 
-    console.log("Données formatées :", formattedData);
+   
 
     await sendDeckInfo(formattedData);
     await lastIdDeck();
@@ -101,9 +100,7 @@ const submitForm = async () => {
         idCrea: null,
     };
 
-    console.log("Données formatées Carte:", formattedDataCarte);
-    console.log("Objet idDeck:", idDeck);
-    console.log("Valeur idDeck:", idDeck.value);
+   
 
     await sendCarteInfo(formattedDataCarte);
 
@@ -117,13 +114,13 @@ const dateFormatted = () => {
     const dd = String(today.getDate()).padStart(2, '0');
 
     const formattedDate = `${yyyy}-${mm}-${dd}`;
-    console.log(formattedDate);
+ 
     return formattedDate;
 
 }
 
 const sendDeckInfo = async (formattedData) => {
-    console.log(formattedData);
+    
 
     const url = "https://mdubois.alwaysdata.net/apiReigns/v3/reigns/deck";
     const options = {
@@ -133,7 +130,6 @@ const sendDeckInfo = async (formattedData) => {
     };
     try {
         await fetch(url, options);
-        console.log("Deck envoyé");
 
     } catch (error) {
         console.error("Erreur lors de l'envoie des données :", error);
@@ -165,7 +161,6 @@ const sendCarteInfo = async (formattedDataCarte) => {
     };
     try {
         await fetch(url, options);
-        console.log('Succès envoie info carte vers BDD');
 
     } catch (error) {
         console.error("Erreur lors de l'envoie des données :", error);

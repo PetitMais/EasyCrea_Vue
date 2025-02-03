@@ -1,7 +1,6 @@
 <template>
   <div v-if="data.titre_deck">
     <span style="word-wrap: break-word;">{{ data.titre_deck }}</span>
-    <!-- <p>Nombre de cartes : {{ data.nb_cartes }}</p> -->
   </div>
   <div v-else>
     <span>Chargement des informations du deck...</span>
@@ -36,7 +35,6 @@ const fetchDeckInfo = async () => {
 
     emit('update:nbCartes', data.value.nb_cartes);
 
-    console.log("Deck récupéré :", data.value);
   } catch (error) {
     console.error("Erreur lors de la récupération des données :", error);
   }

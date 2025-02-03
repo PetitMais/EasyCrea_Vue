@@ -4,7 +4,6 @@
     <h1>Ta carte aléatoire et ta participation au deck</h1>
     <DeckInfo :id="Number(id)" @update:nbCartes="handleNbCartes" />
     <AleaCheck :id_createur="id_crea" :id_deck="Number(id)" @update:carteRng="handleCarteRng" />
-    <!-- id_createur !!! -->
     <CartePrint v-if="idCarte" :id_carte="idCarte" @update:carteInfo="handleCarteInfo" />
 
     <div v-if="carteInfo" class="rc_container">
@@ -76,14 +75,14 @@ let userId = sessionStorage.getItem("id");
 const router = useRouter();
 onMounted(() => {
   if (!userId) {
-    router.replace('/'); // replace empêche le retour arrière vers cette page
+    router.replace('/'); 
   }
   id_crea = Number(sessionStorage.getItem("id")); // = 21
-  console.log("id_crea récupéré de sessionStorage:", id_crea);
+  
 });
 
 const props = defineProps({
-  id: { // id_deck
+  id: { 
     type: [Number, String],
     required: true,
   },
@@ -98,17 +97,17 @@ const carteInfoUser = ref(null);
 const nbCartes = ref(null);
 
 const handleCarteRng = (id_carte_rng) => {
-  console.log('Valeur de carteRng reçue depuis le composant:', id_carte_rng);
+ 
   idCarte.value = id_carte_rng;
 };
 
 const handleCarteInfo = (info) => {
-  console.log('Informations de la carte reçues :', info);
+
   carteInfo.value = info;
 };
 
 const handleNbCartes = async (count) => {
-  console.log('Nombre de cartes reçu du composant DeckInfo:', count);
+ 
   nbCartes.value = count;
 
   if (id_crea) {

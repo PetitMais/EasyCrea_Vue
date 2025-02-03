@@ -3,7 +3,6 @@
     
     <h1>Liste des decks</h1>
     <LogoutButton/>
-    <!-- Checkbox pour filtrer les decks terminés -->
      <div class="switch_container">
         <label class="switch">
           <input type="checkbox" v-model="showFinished">
@@ -14,7 +13,6 @@
 
     <button v-if="userRank === 'admin'" @click="$router.push('/deck/add')">Ajouter un deck</button>
 
-    <!-- Passer les filtres à DeckList -->
     <DeckList :showFinished="showFinished" />
   </section>
 </template>
@@ -29,7 +27,7 @@ export default {
   components: { DeckList, LogoutButton},
   setup() {
     const userRank = ref(sessionStorage.getItem("userRank"));
-    const showFinished = ref(false); // Par défaut, afficher les decks en cours
+    const showFinished = ref(false); 
 
     return { userRank, showFinished };
   }
@@ -68,22 +66,19 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
 }
-
-/* Hide default HTML checkbox */
+*/
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;

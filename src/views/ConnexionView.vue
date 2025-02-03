@@ -29,7 +29,7 @@ async function handleSubmit(event) {
   }
 
   try {
-    // Requête POST avec les identifiants
+
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -42,16 +42,14 @@ async function handleSubmit(event) {
     });
 
     const data = await response.json();
-    console.log(data.id);
+ 
     
     if (data.check === true) {
-      // Redirection vers la page "Deck"
       router.push('/deck');
       sessionStorage.removeItem("choiceRank");
       sessionStorage.setItem("userRank", choiceRank.value);
       sessionStorage.setItem("id", data.id);
     } else {
-      // Afficher un message d'erreur
       errorMessage.value = 'Identifiants incorrects.';
     }
   } catch (error) {
@@ -76,9 +74,7 @@ async function handleSubmit(event) {
       <button type="submit">Se connecter</button>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </form>
-     <!-- Bouton affiché uniquement si choiceRank est 'créateur' -->
      <RouterLink to="/inscription" v-if="choiceRank === 'créateur'">Inscription</RouterLink>
-      <!-- Bouton retour -->
     <RouterLink to="/" id="back">Retour</RouterLink>
   </section>
 
@@ -116,7 +112,6 @@ async function handleSubmit(event) {
   }
 }
 
-/* Ajout de styles pour le bouton */
 button {
   width: 150px;
   margin-top: 10px;
